@@ -12,7 +12,7 @@ namespace DryPants.Extensions
         {
             return new TimeSpan(source, 0, 0, 0);
         }
-        
+
         public static TimeSpan Hours(this int source)
         {
             return new TimeSpan(0, source, 0, 0);
@@ -31,12 +31,12 @@ namespace DryPants.Extensions
         #endregion
 
         #region To: Boolean
-        
+
         public static bool IsEven(this int source)
         {
-            return source % 2 == 0;
-        }  
-        
+            return source%2 == 0;
+        }
+
         public static bool IsOdd(this int source)
         {
             return !source.IsEven();
@@ -45,20 +45,14 @@ namespace DryPants.Extensions
         #endregion
 
         #region To: Integer
-        
+
         public static int Times(this int source, Action<int> action)
         {
             if (source < 0) return 0;
 
-            for (int i = 1; i < source + 1; i++) 
-                action(i);
+            1.UpTo(source, action);
 
             return source;
-        } 
-        
-        public static int Times(this int source, Action action)
-        {
-            return source.Times(i => { });
         }
 
         #endregion
@@ -67,13 +61,11 @@ namespace DryPants.Extensions
 
         public static int[] UpTo(this int source, int limit)
         {
-            if (limit < source) return new[] { source };
+            if (limit < source) return new[] {source};
 
             var values = new Collection<int>();
             for (int i = source; i <= limit; i++)
-            {
                 values.Add(i);
-            }
 
             return values.ToArray();
         }
@@ -96,7 +88,6 @@ namespace DryPants.Extensions
 
             return values.ToArray();
         }
-
 
         public static int DownTo(this int source, int limit, Action<int> action)
         {

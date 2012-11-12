@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Text;
 using System.Web;
@@ -9,6 +10,7 @@ namespace DryPants.Lib
     /// <remarks>
     /// Thanks to Henri Wiechers' Henri Formatter (http://haacked.com/archive/2009/01/14/named-formats-redux.aspx)
     /// </remarks>
+    [ExcludeFromCodeCoverage]
     internal static class HenriFormatter
     {
         private static string OutExpression(object source, string expression)
@@ -43,7 +45,7 @@ namespace DryPants.Lib
                 throw new ArgumentNullException("format");
             }
 
-            var result = new StringBuilder(format.Length * 2);
+            var result = new StringBuilder(format.Length*2);
 
             using (var reader = new StringReader(format))
             {
@@ -69,7 +71,7 @@ namespace DryPants.Lib
                                     state = State.OnCloseBracket;
                                     break;
                                 default:
-                                    result.Append((char)@char);
+                                    result.Append((char) @char);
                                     break;
                             }
                             break;
@@ -84,7 +86,7 @@ namespace DryPants.Lib
                                     state = State.OutsideExpression;
                                     break;
                                 default:
-                                    expression.Append((char)@char);
+                                    expression.Append((char) @char);
                                     state = State.InsideExpression;
                                     break;
                             }
@@ -101,7 +103,7 @@ namespace DryPants.Lib
                                     state = State.OutsideExpression;
                                     break;
                                 default:
-                                    expression.Append((char)@char);
+                                    expression.Append((char) @char);
                                     break;
                             }
                             break;
@@ -126,6 +128,8 @@ namespace DryPants.Lib
             return result.ToString();
         }
 
+        #region Nested type: State
+
         private enum State
         {
             OutsideExpression,
@@ -134,5 +138,7 @@ namespace DryPants.Lib
             OnCloseBracket,
             End
         }
+
+        #endregion
     }
 }

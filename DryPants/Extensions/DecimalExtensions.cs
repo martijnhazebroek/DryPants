@@ -11,8 +11,8 @@ namespace DryPants.Extensions
             return source >= 0
                        ? Math.Floor(source*factor)/factor
                        : Math.Ceiling(source*factor)/factor;
-        } 
-        
+        }
+
         public static decimal RoundUp(this decimal source, int decimalPlaces)
         {
             var factor = (int) Math.Pow(10, decimalPlaces);

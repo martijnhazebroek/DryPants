@@ -54,9 +54,14 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Core\CalenderTests.cs" />
+    <Compile Include="Core\SystemTimeTests.cs" />
+    <Compile Include="ExceptionsTests\ThrowTests.cs" />
+    <Compile Include="Extensions\EnumExtensionsTests.cs" />
+    <Compile Include="Extensions\DecimalExtensionsTests.cs" />
     <Compile Include="Extensions\StringExtensionsTests.cs" />
     <Compile Include="Extensions\IntegerExtensionsTests.cs" />
-    <Compile Include="Extensions\DateExtensionTests.cs" />
+    <Compile Include="Extensions\DateTimeExtensionsTests.cs" />
     <Compile Include="Reflection\AssemblyExtensionsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources.Designer.cs">

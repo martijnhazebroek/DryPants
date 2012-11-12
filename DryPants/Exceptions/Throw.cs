@@ -18,7 +18,7 @@ namespace DryPants.Exceptions
 
             var memberExpression = expression.Body as MemberExpression;
             if (memberExpression == null)
-                throw new InvalidOperationException(Strings.ExpressionNotProperty);
+                throw new InvalidOperationException(Strings.ExpressionNotPropertyOrArgumentName);
 
             IfArgumentNull(memberExpression.Member.Name, expression.Compile()());
         }
@@ -31,29 +31,16 @@ namespace DryPants.Exceptions
         /// <exception cref="ArgumentNullException">The type of Exception thrown.</exception>
         public static void IfArgumentNull(string paramName, object argument)
         {
-            if (paramName == null) 
+            if (paramName == null)
                 throw new ArgumentNullException("paramName");
-            if (argument == null) 
+            if (argument == null)
                 throw new ArgumentNullException(paramName);
         }
 
         #endregion
 
         #region [======== String Checks ========]
-
-        /// <summary>
-        /// Throws an exception if the given argument is null or an empty string.
-        /// </summary>
-        /// <param name="paramName">The name of the argument.</param>
-        /// <param name="argument">The argument to check.</param>
-        /// <exception cref="ArgumentNullException">The type of Exception thrown.</exception>
-        public static void IfArgumentNullOrEmpty(string paramName, string argument)
-        {
-            IfArgumentNull(paramName, argument);
-            if (string.IsNullOrEmpty(argument))
-                throw new ArgumentNullException(paramName);
-        }
-
+        
         /// <summary>
         /// Throws an exception if the given argument is null, empty or consists only of white-space characters.
         /// </summary>

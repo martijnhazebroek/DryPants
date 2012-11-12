@@ -61,11 +61,11 @@ namespace DryPants {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The given expression does not point to a property..
+        ///   Looks up a localized string similar to The given expression does not point to a property or argument name..
         /// </summary>
-        internal static string ExpressionNotProperty {
+        internal static string ExpressionNotPropertyOrArgumentName {
             get {
-                return ResourceManager.GetString("ExpressionNotProperty", resourceCulture);
+                return ResourceManager.GetString("ExpressionNotPropertyOrArgumentName", resourceCulture);
             }
         }
     }

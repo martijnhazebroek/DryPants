@@ -15,14 +15,17 @@
  */
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 // ReSharper disable CheckNamespace
+
 namespace JetBrains.Annotations
 // ReSharper restore CheckNamespace
 {
     /// <summary>
     /// Indicates that marked element should be localized or not.
     /// </summary>
+    [ExcludeFromCodeCoverage]
     [AttributeUsage(AttributeTargets.All, AllowMultiple = false, Inherited = true)]
     public sealed class LocalizationRequiredAttribute : Attribute
     {
@@ -79,6 +82,7 @@ namespace JetBrains.Annotations
     /// Parameter, which contains format string, should be given in constructor.
     /// The format string should be in <see cref="string.Format(IFormatProvider,string,object[])"/> -like form
     /// </summary>
+    [ExcludeFromCodeCoverage]
     [AttributeUsage(AttributeTargets.Constructor | AttributeTargets.Method, AllowMultiple = false, Inherited = true)]
     public sealed class StringFormatMethodAttribute : Attribute
     {
@@ -103,15 +107,21 @@ namespace JetBrains.Annotations
     /// For example, <see cref="ArgumentNullException"/> has such parameter.
     /// </summary>
     [AttributeUsage(AttributeTargets.Parameter, AllowMultiple = false, Inherited = true)]
-    public sealed class InvokerParameterNameAttribute : Attribute { }
+    public sealed class InvokerParameterNameAttribute : Attribute
+    {
+    }
 
     /// <summary>
     /// Indicates that the function is used to notify class type property value is changed.
     /// </summary>
+    [ExcludeFromCodeCoverage]
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false, Inherited = true)]
     public sealed class NotifyPropertyChangedInvocatorAttribute : Attribute
     {
-        public NotifyPropertyChangedInvocatorAttribute() { }
+        public NotifyPropertyChangedInvocatorAttribute()
+        {
+        }
+
         public NotifyPropertyChangedInvocatorAttribute(string parameterName)
         {
             ParameterName = parameterName;
@@ -124,14 +134,22 @@ namespace JetBrains.Annotations
     /// <summary>
     /// Indicates that the value of marked element could be <c>null</c> sometimes, so the check for <c>null</c> is necessary before its usage
     /// </summary>
-    [AttributeUsage(AttributeTargets.Method | AttributeTargets.Parameter | AttributeTargets.Property | AttributeTargets.Delegate | AttributeTargets.Field, AllowMultiple = false, Inherited = true)]
-    public sealed class CanBeNullAttribute : Attribute { }
+    [AttributeUsage(
+        AttributeTargets.Method | AttributeTargets.Parameter | AttributeTargets.Property | AttributeTargets.Delegate |
+        AttributeTargets.Field, AllowMultiple = false, Inherited = true)]
+    public sealed class CanBeNullAttribute : Attribute
+    {
+    }
 
     /// <summary>
     /// Indicates that the value of marked element could never be <c>null</c>
     /// </summary>
-    [AttributeUsage(AttributeTargets.Method | AttributeTargets.Parameter | AttributeTargets.Property | AttributeTargets.Delegate | AttributeTargets.Field, AllowMultiple = false, Inherited = true)]
-    public sealed class NotNullAttribute : Attribute { }
+    [AttributeUsage(
+        AttributeTargets.Method | AttributeTargets.Parameter | AttributeTargets.Property | AttributeTargets.Delegate |
+        AttributeTargets.Field, AllowMultiple = false, Inherited = true)]
+    public sealed class NotNullAttribute : Attribute
+    {
+    }
 
     /// <summary>
     /// Describes dependency between method input and output
@@ -159,6 +177,7 @@ namespace JetBrains.Annotations
     /// <item>[ContractAnnotation("s:null=>false; =>true,result:notnull; =>false, result:null")] public bool TryParse(string s, out Person result)</item>
     /// </list>
     /// </examples>
+    [ExcludeFromCodeCoverage]
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = true, Inherited = true)]
     public sealed class ContractAnnotationAttribute : Attribute
     {
@@ -183,8 +202,11 @@ namespace JetBrains.Annotations
     /// Indicates that the value of marked type (or its derivatives) cannot be compared using '==' or '!=' operators.
     /// There is only exception to compare with <c>null</c>, it is permitted
     /// </summary>
-    [AttributeUsage(AttributeTargets.Interface | AttributeTargets.Class | AttributeTargets.Struct, AllowMultiple = false, Inherited = true)]
-    public sealed class CannotApplyEqualityOperatorAttribute : Attribute { }
+    [AttributeUsage(AttributeTargets.Interface | AttributeTargets.Class | AttributeTargets.Struct, AllowMultiple = false
+        , Inherited = true)]
+    public sealed class CannotApplyEqualityOperatorAttribute : Attribute
+    {
+    }
 
     /// <summary>
     /// When applied to target attribute, specifies a requirement for any type which is marked with 
@@ -201,8 +223,9 @@ namespace JetBrains.Annotations
     /// {}
     /// </code>
     /// </example>
+    [ExcludeFromCodeCoverage]
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true, Inherited = true)]
-    [BaseTypeRequired(typeof(Attribute))]
+    [BaseTypeRequired(typeof (Attribute))]
     public sealed class BaseTypeRequiredAttribute : Attribute
     {
         /// <summary>
@@ -211,7 +234,7 @@ namespace JetBrains.Annotations
         /// <param name="baseType">Specifies which types are required</param>
         public BaseTypeRequiredAttribute(Type baseType)
         {
-            BaseTypes = new[] { baseType };
+            BaseTypes = new[] {baseType};
         }
 
         /// <summary>
@@ -224,12 +247,15 @@ namespace JetBrains.Annotations
     /// Indicates that the marked symbol is used implicitly (e.g. via reflection, in external library),
     /// so this symbol will not be marked as unused (as well as by other usage inspections)
     /// </summary>
+    [ExcludeFromCodeCoverage]
     [AttributeUsage(AttributeTargets.All, AllowMultiple = false, Inherited = true)]
     public sealed class UsedImplicitlyAttribute : Attribute
     {
         [UsedImplicitly]
         public UsedImplicitlyAttribute()
-            : this(ImplicitUseKindFlags.Default, ImplicitUseTargetFlags.Default) { }
+            : this(ImplicitUseKindFlags.Default, ImplicitUseTargetFlags.Default)
+        {
+        }
 
         [UsedImplicitly]
         public UsedImplicitlyAttribute(ImplicitUseKindFlags useKindFlags, ImplicitUseTargetFlags targetFlags)
@@ -240,11 +266,15 @@ namespace JetBrains.Annotations
 
         [UsedImplicitly]
         public UsedImplicitlyAttribute(ImplicitUseKindFlags useKindFlags)
-            : this(useKindFlags, ImplicitUseTargetFlags.Default) { }
+            : this(useKindFlags, ImplicitUseTargetFlags.Default)
+        {
+        }
 
         [UsedImplicitly]
         public UsedImplicitlyAttribute(ImplicitUseTargetFlags targetFlags)
-            : this(ImplicitUseKindFlags.Default, targetFlags) { }
+            : this(ImplicitUseKindFlags.Default, targetFlags)
+        {
+        }
 
         [UsedImplicitly]
         public ImplicitUseKindFlags UseKindFlags { get; private set; }
@@ -260,11 +290,14 @@ namespace JetBrains.Annotations
     /// Should be used on attributes and causes ReSharper to not mark symbols marked with such attributes as unused (as well as by other usage inspections)
     /// </summary>
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = true)]
+    [ExcludeFromCodeCoverage]
     public sealed class MeansImplicitUseAttribute : Attribute
     {
         [UsedImplicitly]
         public MeansImplicitUseAttribute()
-            : this(ImplicitUseKindFlags.Default, ImplicitUseTargetFlags.Default) { }
+            : this(ImplicitUseKindFlags.Default, ImplicitUseTargetFlags.Default)
+        {
+        }
 
         [UsedImplicitly]
         public MeansImplicitUseAttribute(ImplicitUseKindFlags useKindFlags, ImplicitUseTargetFlags targetFlags)
@@ -281,7 +314,9 @@ namespace JetBrains.Annotations
 
         [UsedImplicitly]
         public MeansImplicitUseAttribute(ImplicitUseTargetFlags targetFlags)
-            : this(ImplicitUseKindFlags.Default, targetFlags) { }
+            : this(ImplicitUseKindFlags.Default, targetFlags)
+        {
+        }
 
         [UsedImplicitly]
         public ImplicitUseKindFlags UseKindFlags { get; private set; }
@@ -346,12 +381,19 @@ namespace JetBrains.Annotations
     /// </summary>
     [MeansImplicitUse]
 // ReSharper disable InconsistentNaming
+    [ExcludeFromCodeCoverage]
     public sealed class PublicAPIAttribute : Attribute
 // ReSharper restore InconsistentNaming
     {
-        public PublicAPIAttribute() { }
+        public PublicAPIAttribute()
+        {
+        }
+
 // ReSharper disable UnusedParameter.Local
-        public PublicAPIAttribute(string comment) { }
+        public PublicAPIAttribute(string comment)
+        {
+        }
+
 // ReSharper restore UnusedParameter.Local
     }
 
@@ -361,19 +403,26 @@ namespace JetBrains.Annotations
     /// If the parameter is enumerable, indicates that it is enumerated while the method is executed.
     /// </summary>
     [AttributeUsage(AttributeTargets.Parameter, Inherited = true)]
-    public sealed class InstantHandleAttribute : Attribute { }
+    public sealed class InstantHandleAttribute : Attribute
+    {
+    }
 
     /// <summary>
     /// Indicates that method doesn't contain observable side effects.
     /// The same as <see cref="System.Diagnostics.Contracts.PureAttribute"/>
     /// </summary>
     [AttributeUsage(AttributeTargets.Method, Inherited = true)]
-    public sealed class PureAttribute : Attribute { }
+    public sealed class PureAttribute : Attribute
+    {
+    }
 
+    [ExcludeFromCodeCoverage]
     [AttributeUsage(AttributeTargets.Parameter)]
     public class PathReferenceAttribute : Attribute
     {
-        public PathReferenceAttribute() { }
+        public PathReferenceAttribute()
+        {
+        }
 
         [UsedImplicitly]
         public PathReferenceAttribute([PathReference] string basePath)
@@ -387,75 +436,102 @@ namespace JetBrains.Annotations
 
     // ASP.NET MVC attributes
 
+    [ExcludeFromCodeCoverage]
     [AttributeUsage(AttributeTargets.Parameter | AttributeTargets.Method)]
     public sealed class AspMvcActionAttribute : Attribute
     {
-        [UsedImplicitly]
-        public string AnonymousProperty { get; private set; }
-
-        public AspMvcActionAttribute() { }
+        public AspMvcActionAttribute()
+        {
+        }
 
         public AspMvcActionAttribute(string anonymousProperty)
         {
             AnonymousProperty = anonymousProperty;
         }
+
+        [UsedImplicitly]
+        public string AnonymousProperty { get; private set; }
     }
 
+    [ExcludeFromCodeCoverage]
     [AttributeUsage(AttributeTargets.Parameter)]
     public sealed class AspMvcAreaAttribute : PathReferenceAttribute
     {
         [UsedImplicitly]
-        public string AnonymousProperty { get; private set; }
-
-        [UsedImplicitly]
-        public AspMvcAreaAttribute() { }
+        public AspMvcAreaAttribute()
+        {
+        }
 
         public AspMvcAreaAttribute(string anonymousProperty)
         {
             AnonymousProperty = anonymousProperty;
         }
+
+        [UsedImplicitly]
+        public string AnonymousProperty { get; private set; }
     }
 
+    [ExcludeFromCodeCoverage]
     [AttributeUsage(AttributeTargets.Parameter | AttributeTargets.Method)]
     public sealed class AspMvcControllerAttribute : Attribute
     {
-        [UsedImplicitly]
-        public string AnonymousProperty { get; private set; }
-
-        public AspMvcControllerAttribute() { }
+        public AspMvcControllerAttribute()
+        {
+        }
 
         public AspMvcControllerAttribute(string anonymousProperty)
         {
             AnonymousProperty = anonymousProperty;
         }
+
+        [UsedImplicitly]
+        public string AnonymousProperty { get; private set; }
     }
 
     [AttributeUsage(AttributeTargets.Parameter)]
-    public sealed class AspMvcMasterAttribute : Attribute { }
+    public sealed class AspMvcMasterAttribute : Attribute
+    {
+    }
 
     [AttributeUsage(AttributeTargets.Parameter)]
-    public sealed class AspMvcModelTypeAttribute : Attribute { }
+    public sealed class AspMvcModelTypeAttribute : Attribute
+    {
+    }
 
     [AttributeUsage(AttributeTargets.Parameter | AttributeTargets.Method)]
-    public sealed class AspMvcPartialViewAttribute : PathReferenceAttribute { }
+    public sealed class AspMvcPartialViewAttribute : PathReferenceAttribute
+    {
+    }
 
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
-    public sealed class AspMvcSupressViewErrorAttribute : Attribute { }
+    public sealed class AspMvcSupressViewErrorAttribute : Attribute
+    {
+    }
 
     [AttributeUsage(AttributeTargets.Parameter)]
-    public sealed class AspMvcDisplayTemplateAttribute : Attribute { }
+    public sealed class AspMvcDisplayTemplateAttribute : Attribute
+    {
+    }
 
     [AttributeUsage(AttributeTargets.Parameter)]
-    public sealed class AspMvcEditorTemplateAttribute : Attribute { }
+    public sealed class AspMvcEditorTemplateAttribute : Attribute
+    {
+    }
 
     [AttributeUsage(AttributeTargets.Parameter | AttributeTargets.Method)]
-    public sealed class AspMvcViewAttribute : PathReferenceAttribute { }
+    public sealed class AspMvcViewAttribute : PathReferenceAttribute
+    {
+    }
 
     [AttributeUsage(AttributeTargets.Parameter | AttributeTargets.Property)]
-    public sealed class AspMvcActionSelectorAttribute : Attribute { }
+    public sealed class AspMvcActionSelectorAttribute : Attribute
+    {
+    }
 
     // Razor attributes
 
     [AttributeUsage(AttributeTargets.Parameter | AttributeTargets.Method, Inherited = true)]
-    public sealed class RazorSectionAttribute : Attribute { }
+    public sealed class RazorSectionAttribute : Attribute
+    {
+    }
 }
