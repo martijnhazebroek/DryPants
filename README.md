@@ -24,7 +24,7 @@ Don't repeat yourself tools for .NET
 	2.Days().After(Calendar.NextWorkday);
 
 	// Output: The age of a person whose birthday is 1985-10-24.    
-	new DateTime(1985, 10, 24).Age();   
+	new DateTime(1985, 10, 24).ToAge();   
 
 	// Output: "0 1 2 3 4".
 	5.Times(i => Console.WriteLine(i + " "));
