@@ -50,7 +50,7 @@ namespace DryPants.Extensions
         {
             if (source < 0) return 0;
 
-            1.UpTo(source, action);
+            0.UpTo(source - 1, action);
 
             return source;
         }
