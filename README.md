@@ -3,7 +3,7 @@ Don't repeat yourself tools for .NET
 
 ## Feature overview
 - Calendar class for common date related tasks;
-- String extension methods for string interpolation (a.k.a. named format).
+- String extension methods for string interpolation (a.k.a. named format);
 - Ruby-style language features;
 - Exception management utility class;
 - Etc.
