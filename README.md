@@ -23,10 +23,13 @@ Don't repeat yourself tools for .NET
 	// Output: DateTime containing the date of two days after the next workday. 	
 	2.Days().After(Calendar.NextWorkday);
 
+	// Output: The age of a person whose birthday is 1985-10-24.    
+	new DateTime(1985, 10, 24).Age();   
+
 	// Output: "0 1 2 3 4".
 	5.Times(i => Console.WriteLine(i + " "));
 
-	// Output: "[5, 6, 7, 8, 9, 10]".
+	// Output: [5, 6, 7, 8, 9, 10].
 	5.UpTo(10);
 
 	// Output: "5:False 6:True 7:False 8:True 9:False 10:True".
@@ -46,4 +49,10 @@ Don't repeat yourself tools for .NET
 
 	// Output: All types that are instantiable + filter types which are dependant on other types that could not be loaded.
 	Assembly.GetExecutingAssembly().GetInstantiableTypes();
+
+	// Output: 
+	//	Lorem Ipsum
+	//	Second line
+	//	Third line
+	"Lorem Ipsum\nSecond line\nThird line".EachLine(Console.WriteLine);
 
