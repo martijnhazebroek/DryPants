@@ -109,6 +109,8 @@ namespace DryPants.Core
             get { return Today.AddMonths(-1); }
         }
 
+        #endregion
+
         #region Year
 
         public static int DaysInCurrentYear
@@ -120,8 +122,6 @@ namespace DryPants.Core
         {
             get { return Today.IsLeapYear(); }
         }
-
-        #endregion
 
         #endregion
     }
