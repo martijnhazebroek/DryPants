@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.ObjectModel;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace DryPants.Extensions
@@ -63,11 +63,7 @@ namespace DryPants.Extensions
         {
             if (limit < source) return new[] {source};
 
-            var values = new Collection<int>();
-            for (int i = source; i <= limit; i++)
-                values.Add(i);
-
-            return values.ToArray();
+            return source.InternalUpTo(limit).ToArray();
         }
 
         public static int UpTo(this int source, int limit, Action<int> action)
@@ -78,15 +74,17 @@ namespace DryPants.Extensions
             return source;
         }
 
+        internal static IEnumerable<int> InternalUpTo(this int source, int limit)
+        {
+            for (int i = source; i <= limit; i++)
+                yield return i;
+        }
+
         public static int[] DownTo(this int source, int limit)
         {
             if (limit > source) return new[] {source};
 
-            var values = new Collection<int>();
-            for (int i = source; i >= limit; i--)
-                values.Add(i);
-
-            return values.ToArray();
+            return source.PrivateDownTo(limit).ToArray();
         }
 
         public static int DownTo(this int source, int limit, Action<int> action)
@@ -95,6 +93,12 @@ namespace DryPants.Extensions
                 action(i);
 
             return source;
+        }
+
+        private static IEnumerable<int> PrivateDownTo(this int source, int limit)
+        {
+            for (int i = source; i >= limit; i--)
+                yield return i;
         }
 
         #endregion

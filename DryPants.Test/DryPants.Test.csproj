@@ -57,6 +57,8 @@
     <Compile Include="Core\CalenderTests.cs" />
     <Compile Include="Core\SystemTimeTests.cs" />
     <Compile Include="ExceptionsTests\ThrowTests.cs" />
+    <Compile Include="Extensions\CharExtensionsTests.cs" />
+    <Compile Include="Extensions\StringBuilderExtensionsTests.cs" />
     <Compile Include="Extensions\EnumExtensionsTests.cs" />
     <Compile Include="Extensions\DecimalExtensionsTests.cs" />
     <Compile Include="Extensions\StringExtensionsTests.cs" />
