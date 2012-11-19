@@ -56,3 +56,17 @@ Don't repeat yourself tools for .NET
 	//	Third line
 	"Lorem Ipsum\nSecond line\nThird line".EachLine(Console.WriteLine);
 
+	// Output: ['a', 'b', 'c',....'z']
+	'a'.UpTo('z');
+
+	// Output: 25
+	'z'.ToAlphabetIndex()
+
+	// Output: "Minus 2 is an even number."
+	const int number = 2;    
+    new StringBuilder().AppendFormatIf(number >= 0, "{0} is an ", number)
+                       .AppendFormatIf(number < 0, "Minus {0} is an ", number * -1)
+                       .AppendIf(2.IsEven(), "even")
+                       .AppendIf(2.IsOdd(), "odd")
+                       .Append(" number.")
+		               .ToString();
