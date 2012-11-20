@@ -8,18 +8,8 @@ namespace DryPants.Core
     {
         #region Fields
 
-        private static readonly Func<DateTime> DateTimeFunc;
-        private static readonly CultureInfo ActiveCulture;
-
-        #endregion
-
-        #region Constructors
-
-        static Calendar()
-        {
-            DateTimeFunc = SystemTime.Today;
-            ActiveCulture = CultureInfo.CurrentCulture;
-        }
+        private static readonly Func<DateTime> DateTimeFunc = SystemTime.Today;
+        private static readonly CultureInfo ActiveCulture = CultureInfo.CurrentCulture;
 
         #endregion
 
@@ -70,7 +60,7 @@ namespace DryPants.Core
 
         #region Weeks
 
-        public static int Weeknumber
+        public static int WeekNumber
         {
             get
             {

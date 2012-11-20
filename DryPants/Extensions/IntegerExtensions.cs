@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using DryPants.Exceptions;
 
 namespace DryPants.Extensions
 {
@@ -68,6 +69,8 @@ namespace DryPants.Extensions
 
         public static int UpTo(this int source, int limit, Action<int> action)
         {
+            Throw.IfArgumentNull(() => action);
+
             foreach (int i in source.UpTo(limit))
                 action(i);
 
@@ -89,6 +92,8 @@ namespace DryPants.Extensions
 
         public static int DownTo(this int source, int limit, Action<int> action)
         {
+            Throw.IfArgumentNull(() => action);
+
             foreach (int i in source.DownTo(limit))
                 action(i);
 

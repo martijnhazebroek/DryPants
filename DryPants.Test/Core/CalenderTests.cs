@@ -1,7 +1,10 @@
-﻿using System;
-using DryPants.Core;
+﻿using DryPants.Core;
 using JetBrains.Annotations;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.Globalization;
+using System.Threading;
+using Calendar = DryPants.Core.Calendar;
 
 namespace DryPants.Test.Core
 {
@@ -132,38 +135,38 @@ namespace DryPants.Test.Core
         public class WeeknumberTests : CalendarTest
         {
             [TestMethod]
-            public void FirstJanuaryOfYear2012_WeeknumberIs52()
+            public void FirstJanuaryOfYear2012_WeeknumberIs1()
             {
                 SystemTime.Now = () => new DateTime(2012, 1, 1);
-                Assert.AreEqual(52, Calendar.Weeknumber);
+                Assert.AreEqual(1, Calendar.WeekNumber);
             }
 
             [TestMethod]
             public void SecondJanuaryOfYear2012_WeeknumberIs1()
             {
                 SystemTime.Now = () => new DateTime(2012, 1, 2);
-                Assert.AreEqual(1, Calendar.Weeknumber);
+                Assert.AreEqual(1, Calendar.WeekNumber);
             }
 
             [TestMethod]
-            public void LastDayOfYear2012_WeeknumberIs53()
+            public void LastDayOfYear2012_WeeknumberIs52()
             {
                 SystemTime.Now = () => new DateTime(2012, 12, 31);
-                Assert.AreEqual(53, Calendar.Weeknumber);
+                Assert.AreEqual(52, Calendar.WeekNumber);
             }
 
             [TestMethod]
             public void LastDayOfYear2005_WeeknumberIs52()
             {
                 SystemTime.Now = () => new DateTime(2005, 12, 31);
-                Assert.AreEqual(52, Calendar.Weeknumber);
+                Assert.AreEqual(52, Calendar.WeekNumber);
             }
 
             [TestMethod]
-            public void DayMethodWasImplemented_WeeknumberIs45()
+            public void DayMethodWasImplemented_WeeknumberIs46()
             {
                 SystemTime.Now = () => new DateTime(2012, 11, 11);
-                Assert.AreEqual(45, Calendar.Weeknumber);
+                Assert.AreEqual(46, Calendar.WeekNumber);
             }
         }
 
@@ -254,6 +257,12 @@ namespace DryPants.Test.Core
 
     internal class CalendarTest
     {
+        [TestInitialize]
+        public void TestInitialize()
+        {
+            Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
+        }
+
         [TestCleanup]
         public void TestCleanup()
         {

@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
 using System.Resources;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
@@ -8,12 +9,13 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyProduct("DryPants")]
 [assembly: AssemblyTitle("DryPants")]
 [assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.4.0")]
+[assembly: AssemblyFileVersion("1.0.5.0")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: NeutralResourcesLanguage("en-US")]
 [assembly: ComVisible(false)]
+[assembly: CLSCompliant(true)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 
