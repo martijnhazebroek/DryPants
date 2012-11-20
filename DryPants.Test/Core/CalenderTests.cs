@@ -132,38 +132,38 @@ namespace DryPants.Test.Core
         }
 
         [TestClass]
-        public class WeeknumberTests : CalendarTest
+        public class WeekNumberTests : CalendarTest
         {
             [TestMethod]
-            public void FirstJanuaryOfYear2012_WeeknumberIs1()
+            public void FirstJanuaryOfYear2012_WeekNumberIs1()
             {
                 SystemTime.Now = () => new DateTime(2012, 1, 1);
                 Assert.AreEqual(1, Calendar.WeekNumber);
             }
 
             [TestMethod]
-            public void SecondJanuaryOfYear2012_WeeknumberIs1()
+            public void SecondJanuaryOfYear2012_WeekNumberIs1()
             {
                 SystemTime.Now = () => new DateTime(2012, 1, 2);
                 Assert.AreEqual(1, Calendar.WeekNumber);
             }
 
             [TestMethod]
-            public void LastDayOfYear2012_WeeknumberIs52()
+            public void LastDayOfYear2012_WeekNumberIs53()
             {
                 SystemTime.Now = () => new DateTime(2012, 12, 31);
-                Assert.AreEqual(52, Calendar.WeekNumber);
+                Assert.AreEqual(53, Calendar.WeekNumber);
             }
 
             [TestMethod]
-            public void LastDayOfYear2005_WeeknumberIs52()
+            public void LastDayOfYear2005_WeekNumberIs53()
             {
                 SystemTime.Now = () => new DateTime(2005, 12, 31);
-                Assert.AreEqual(52, Calendar.WeekNumber);
+                Assert.AreEqual(53, Calendar.WeekNumber);
             }
 
             [TestMethod]
-            public void DayMethodWasImplemented_WeeknumberIs46()
+            public void DayMethodWasImplemented_WeekNumberIs46()
             {
                 SystemTime.Now = () => new DateTime(2012, 11, 11);
                 Assert.AreEqual(46, Calendar.WeekNumber);
