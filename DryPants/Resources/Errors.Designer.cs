@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DryPants {
+namespace DryPants.Resources {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace DryPants {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Strings {
+    internal class Errors {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Strings() {
+        internal Errors() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace DryPants {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("DryPants.Strings", typeof(Strings).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("DryPants.Resources.Errors", typeof(Errors).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,11 +61,30 @@ namespace DryPants {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The appSetting with key {Key} could not be found in the application configuration file..
+        /// </summary>
+        internal static string AppSettingDoesNotExist {
+            get {
+                return ResourceManager.GetString("AppSettingDoesNotExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The given expression does not point to a property or argument name..
         /// </summary>
         internal static string ExpressionNotPropertyOrArgumentName {
             get {
                 return ResourceManager.GetString("ExpressionNotPropertyOrArgumentName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to create an instance of the type {Name}.
+        ///Implement TypeConvertAppSetting to convert to it manually..
+        /// </summary>
+        internal static string UnableToCreateInstanceOfTypeForAppSetting {
+            get {
+                return ResourceManager.GetString("UnableToCreateInstanceOfTypeForAppSetting", resourceCulture);
             }
         }
     }

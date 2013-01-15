@@ -1,12 +1,23 @@
+### 1.0.0.6 (01-15-2013)
+
+- **DryAppSettings**
+Strongly Typed AppSettings, no extra configuration needed
+
+- **DryExceptions**
+Exception base class with string interpolation.
+
+### 1.0.0.5 
+No official release: code fixes.
+
 ### 1.0.0.4 (11-19-2012)
 
 - **StringBuilder**: Added `AppendIf` and `AppendFormatIf` extension methods	
-	- `builder.AppendFormat(2.IsEven(), "2 is an even number")`	
-	-  `builder.AppendFormatIf(2.IsEven(), "{0} is an even number", 2)`
+    - `builder.AppendFormat(2.IsEven(), "2 is an even number")`	
+    -  `builder.AppendFormatIf(2.IsEven(), "{0} is an even number", 2)`
 
 - **char**: Added `UpTo` and `ToAlphabetIndex` extension methods.
 	-  `'a'.UpTo('z') // returns ['a', 'b', 'c', ..... 'z']`
-	- `'z'.ToAlphabetIndex() // returns 25`
+	-  `'z'.ToAlphabetIndex() // returns 25`
 
 
 

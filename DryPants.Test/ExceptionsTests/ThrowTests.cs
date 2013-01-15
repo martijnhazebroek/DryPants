@@ -1,5 +1,6 @@
 ﻿using System;
 using DryPants.Exceptions;
+using DryPants.Resources;
 using JetBrains.Annotations;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -125,7 +126,7 @@ namespace DryPants.Test.ExceptionsTests
                 }
             }
 
-            [TestMethod, ExpectedException(typeof (InvalidOperationException))]
+            [TestMethod, ExpectedException(typeof(InvalidPropertyExpressionException))]
             public void InvalidExpressionForPropertyName_ThrowsValidExceptionWithValidMessage()
             {
                 try

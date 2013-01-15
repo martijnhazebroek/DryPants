@@ -117,7 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AppSettingDoesNotExist" xml:space="preserve">
+    <value>The appSetting with key {Key} could not be found in the application configuration file.</value>
+  </data>
   <data name="ExpressionNotPropertyOrArgumentName" xml:space="preserve">
     <value>The given expression does not point to a property or argument name.</value>
+  </data>
+  <data name="UnableToCreateInstanceOfTypeForAppSetting" xml:space="preserve">
+    <value>Unable to create an instance of the type {Name}.
+Implement TypeConvertAppSetting to convert to it manually.</value>
   </data>
 </root>

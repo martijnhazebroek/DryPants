@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq.Expressions;
+using DryPants.Reflection;
 
 namespace DryPants.Exceptions
 {
@@ -16,11 +17,9 @@ namespace DryPants.Exceptions
         {
             if (expression == null) throw new ArgumentNullException("expression");
 
-            var memberExpression = expression.Body as MemberExpression;
-            if (memberExpression == null)
-                throw new InvalidOperationException(Strings.ExpressionNotPropertyOrArgumentName);
+            string memberName = PropertyName.For(expression);
 
-            IfArgumentNull(memberExpression.Member.Name, expression.Compile()());
+            IfArgumentNull(memberName, expression.Compile()());
         }
 
         /// <summary>

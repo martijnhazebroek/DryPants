@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>DryPants</id>
+    <version>1.0.4</version>
+    <title>$title$</title>
+    <authors>Martijn Hazebroek</authors>
+    <owners>Martijn Hazebroek</owners>
+    <projectUrl>https://github.com/martijnhazebroek/DryPants</projectUrl>
+    <iconUrl>http://www.martijnenchantal.net/logos/drypants-logo120x120.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Don't repeat yourself tools for .NET</description>
+    <releaseNotes>* StringBuilder: Added AppendIf and AppendFormatIf extension methods.
+* char: Added UpTo and ToAlphabetIndex extension methods.</releaseNotes>
+    <copyright>Copyright 2012</copyright>
+    <tags>dry util</tags>
+  </metadata>
+</package>
