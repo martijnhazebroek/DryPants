@@ -70,3 +70,21 @@ Don't repeat yourself tools for .NET
                        .AppendIf(2.IsOdd(), "odd")
                        .Append(" number.")
 		               .ToString();
+
+	// Output: true.
+	new DateTime(2012, 10, 31).IsLastDayOfMonth()
+
+	// Feature: Strongly typed application settings.
+	internal sealed class AppSettings : DryAppSettings
+	{
+	    public Version VersionAppSetting
+	    {
+	        get { return GetAppSettingFor(() => VersionAppSetting); }
+	    }	
+  		public FileInfo FileInfoAppSetting
+        {
+        	get { return GetAppSettingFor(() => FileInfoAppSetting); }
+        }
+		// etc.
+	}
+

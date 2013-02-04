@@ -134,21 +134,43 @@ namespace DryPants.Test.Extensions
         public class LastDayOfMonthTests : DateTimeExtensionsTest
         {
             [TestMethod]
-            public void MidNovemberYear2012_LastDayOfMonth_Returns30November2012()
+            public void MidNovemberYear2012_LastDayOfMonth_ReturnsThirtyNovember2012()
             {
                 Assert.AreEqual(new DateTime(2012, 11, 30), new DateTime(2012, 11, 11).LastDayOfMonth());
             }
 
             [TestMethod]
-            public void FirstOfNovemberYear2012_LastDayOfMonth_Returns30November2012()
+            public void FirstOfNovemberYear2012_LastDayOfMonth_ReturnsThirtyNovember2012()
             {
                 Assert.AreEqual(new DateTime(2012, 11, 30), new DateTime(2012, 11, 1).LastDayOfMonth());
             }
 
             [TestMethod]
-            public void FirstOfOctoberYear2012_LastDayOfMonth_Returns30October2012()
+            public void FirstOfOctoberYear2012_LastDayOfMonth_ReturnsThirtyOctober2012()
             {
                 Assert.AreEqual(new DateTime(2012, 10, 31), new DateTime(2012, 10, 31).LastDayOfMonth());
+            }
+        }  
+        
+        [TestClass]
+        public class IsLastDayOfMonthTests : DateTimeExtensionsTest
+        {
+            [TestMethod]
+            public void IsLastDayOfMonth_ReturnsTrue_WhenSourceIsThirtyOctober2012()
+            {
+                Assert.IsTrue(new DateTime(2012, 10, 31).IsLastDayOfMonth());
+            }
+            
+            [TestMethod]
+            public void IsLastDayOfMonth_ReturnsTrue_WhenSourceIsTwentyNineFebrOnLeapYear()
+            {
+                Assert.IsTrue(new DateTime(2012, 2, 29).IsLastDayOfMonth());
+            }
+
+            [TestMethod]
+            public void IsLastDayOfMonth_ReturnsFalse_WhenSourceIsTwentyEightFebrOnLeapYear()
+            {
+                Assert.IsFalse(new DateTime(2012, 2, 28).IsLastDayOfMonth());
             }
         }
 

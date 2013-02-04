@@ -1,4 +1,12 @@
-### 1.0.0.6 (01-15-2013)
+### 1.0.6.1 (02-04-2013)
+
+- **DryAppSettings**
+Fixed concurrency issue when using DryAppSettings as a singleton.
+
+- **DateTime** Added extension method
+	- `DateTime IsLastDayOfMonth (this DateTime source)`	
+
+### 1.0.6.0 (01-15-2013)
 
 - **DryAppSettings**
 Strongly Typed AppSettings, no extra configuration needed
@@ -6,10 +14,10 @@ Strongly Typed AppSettings, no extra configuration needed
 - **DryExceptions**
 Exception base class with string interpolation.
 
-### 1.0.0.5 
+### 1.0.5.0 
 No official release: code fixes.
 
-### 1.0.0.4 (11-19-2012)
+### 1.0.4.0 (11-19-2012)
 
 - **StringBuilder**: Added `AppendIf` and `AppendFormatIf` extension methods	
     - `builder.AppendFormat(2.IsEven(), "2 is an even number")`	
@@ -21,7 +29,7 @@ No official release: code fixes.
 
 
 
-### 1.0.0.3 (11-13-2012)
+### 1.0.3.0 (11-13-2012)
 
 - **Calendar** utility class
 	-  `DateTime Yesterday`

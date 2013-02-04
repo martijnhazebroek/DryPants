@@ -37,6 +37,11 @@ namespace DryPants.Extensions
             return !source.DayOfWeek.IsOneOf(DayOfWeek.Saturday, DayOfWeek.Sunday);
         }
 
+        public static bool IsLastDayOfMonth(this DateTime source)
+        {
+            return source.AddDays(1).Day == 1;
+        }
+
         public static DateTime FirstDayOfMonth(this DateTime source)
         {
             return new DateTime(source.Year,

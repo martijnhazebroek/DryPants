@@ -57,6 +57,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="TestExtensions.cs" />
     <Compile Include="Core\CalenderTests.cs" />
     <Compile Include="Core\SystemTimeTests.cs" />
     <Compile Include="ExceptionsTests\DryExceptionTests.cs" />

@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using DryPants.Reflection;
+using DryPants.Resources;
+using System;
+using System.Collections.Concurrent;
 using System.Collections.Specialized;
 using System.Configuration;
 using System.Linq.Expressions;
-using DryPants.Reflection;
-using DryPants.Resources;
 
 namespace DryPants.Settings
 {
@@ -12,8 +12,8 @@ namespace DryPants.Settings
     {
         private readonly NameValueCollection _appSettings;
 
-        private readonly Lazy<Dictionary<string, object>> _convertedValueCache =
-            new Lazy<Dictionary<string, object>>(() => new Dictionary<string, object>());
+        private readonly Lazy<ConcurrentDictionary<string, object>> _convertedValueCache =
+            new Lazy<ConcurrentDictionary<string, object>>(() => new ConcurrentDictionary<string, object>());
 
         protected DryAppSettings() : this(ConfigurationManager.AppSettings) {}
 
@@ -22,7 +22,7 @@ namespace DryPants.Settings
             _appSettings = appSettings;
         }
 
-        private Dictionary<string, object> Cache
+        private ConcurrentDictionary<string, object> Cache
         {
             get { return _convertedValueCache.Value; }
         }
@@ -41,7 +41,7 @@ namespace DryPants.Settings
 
             string stringValue = _appSettings[key];
             var convertedValue = TypeConvertAppSetting<T>(stringValue);
-            Cache.Add(key, convertedValue);
+            Cache.TryAdd(key, convertedValue);
 
             return convertedValue;
         }

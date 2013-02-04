@@ -155,6 +155,13 @@ namespace DryPants.Test.Settings
             var appSettings = new RealAppSettings();
             Assert.AreEqual("TestAppSettingValue", appSettings.TestAppSetting);
         }
+        
+        [TestMethod]
+        public void GetAppSettingString_ReturnsValidStringResult_WhenExecutedOnMultipleThreads()
+        {
+            Action test = () => Assert.AreEqual("Setup.exe", AppSettings.Instance.FileInfoAppSetting.Name);
+            test.OnMultipleThreads(numberOfThreads: 25);
+        }
 
         #endregion
 
