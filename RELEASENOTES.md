@@ -1,3 +1,11 @@
+### 1.0.7.0 (03-05-2013)
+
+- **Period:**
+Added `Period` class and `EachMonth(Action<Period> action)` Extension Method.
+
+- **DateTimeExtensions:**
+Added `Max` and `Min` methods.
+
 ### 1.0.6.1 (02-04-2013)
 
 - **DryAppSettings**

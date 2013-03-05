@@ -61,7 +61,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\Calendar.cs" />
+    <Compile Include="Core\Period.cs" />
     <Compile Include="Exceptions\DryException.cs" />
+    <Compile Include="Extensions\PeriodExtensions.cs" />
     <Compile Include="Reflection\TypeConverter.cs" />
     <Compile Include="Resources\ConvertAppSettingToTypeException.cs" />
     <Compile Include="Resources\AppSettingDoesNotExistException.cs" />

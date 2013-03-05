@@ -6,6 +6,8 @@ namespace DryPants.Extensions
 {
     public static class DateTimeExtensions
     {
+        #region Extension Methods
+
         public static int ToAge(this DateTime birthday)
         {
             DateTime now = SystemTime.Now();
@@ -74,5 +76,21 @@ namespace DryPants.Extensions
 
             return day;
         }
+
+        #endregion
+
+        #region Util
+
+        public static DateTime Min(DateTime first, DateTime second)
+        {
+            return first < second ? first : second;
+        }
+
+        public static DateTime Max(DateTime first, DateTime second)
+        {
+            return first > second ? first : second;
+        }
+
+        #endregion
     }
 }

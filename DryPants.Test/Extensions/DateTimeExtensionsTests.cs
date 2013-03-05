@@ -3,16 +3,27 @@ using System.Globalization;
 using System.Threading;
 using DryPants.Core;
 using DryPants.Extensions;
-using JetBrains.Annotations;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DryPants.Test.Extensions
 {
-    [UsedImplicitly]
-    internal class DateTimeExtensionsTests
+    [TestClass]
+    public class DateTimeExtensionsTests
     {
+        [TestInitialize]
+        public void TestInitialize()
+        {
+            Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
+        }
+
+        [TestCleanup]
+        public void TestCleanup()
+        {
+            SystemTime.Now = () => DateTime.Now;
+        }
+
         [TestClass]
-        public class AfterTests : DateTimeExtensionsTest
+        public class AfterTests : DateTimeExtensionsTests
         {
             [TestMethod]
             public void DateTimeWithHoursMinutesAndSeconds_10DaysAfter_Returns10DaysAfterGivenDate()
@@ -28,7 +39,7 @@ namespace DryPants.Test.Extensions
         }
 
         [TestClass]
-        public class AgoTests : DateTimeExtensionsTest
+        public class AgoTests : DateTimeExtensionsTests
         {
             [TestMethod]
             public void DateTimeWithHoursMinutesAndSeconds_10DaysAgo_ReturnsDateTimeNowMinus10Days()
@@ -39,7 +50,7 @@ namespace DryPants.Test.Extensions
         }
 
         [TestClass]
-        public class BeforeTests : DateTimeExtensionsTest
+        public class BeforeTests : DateTimeExtensionsTests
         {
             [TestMethod]
             public void DateTimeWithHoursMinutesAndSeconds_10DaysBefore_Returns10DaysBeforeGivenDate()
@@ -55,7 +66,7 @@ namespace DryPants.Test.Extensions
         }
 
         [TestClass]
-        public class FirstDayOfMonthTests : DateTimeExtensionsTest
+        public class FirstDayOfMonthTests : DateTimeExtensionsTests
         {
             [TestMethod]
             public void MidNovemberYear2012_FirstDayOfMonth_Returns1November2012()
@@ -71,7 +82,7 @@ namespace DryPants.Test.Extensions
         }
 
         [TestClass]
-        public class FirstDayOfWeekTests : DateTimeExtensionsTest
+        public class FirstDayOfWeekTests : DateTimeExtensionsTests
         {
             [TestMethod]
             public void RegularWednesday_ReturnsExpectedDayOfWeek()
@@ -88,7 +99,7 @@ namespace DryPants.Test.Extensions
         }
 
         [TestClass]
-        public class FromNowTests : DateTimeExtensionsTest
+        public class FromNowTests : DateTimeExtensionsTests
         {
             [TestMethod]
             public void DateTimeWithHoursMinutesAndSeconds_10DaysFromNow_ReturnsDateTimePlus10Days()
@@ -99,7 +110,7 @@ namespace DryPants.Test.Extensions
         }
 
         [TestClass]
-        public class GetDaysInMonthTests : DateTimeExtensionsTest
+        public class GetDaysInMonthTests : DateTimeExtensionsTests
         {
             [TestMethod]
             public void NormalYearFebruary_Returns28Days()
@@ -115,7 +126,7 @@ namespace DryPants.Test.Extensions
         }
 
         [TestClass]
-        public class GetDaysInYearTests : DateTimeExtensionsTest
+        public class GetDaysInYearTests : DateTimeExtensionsTests
         {
             [TestMethod]
             public void NormalYear_Returns365Days()
@@ -131,7 +142,7 @@ namespace DryPants.Test.Extensions
         }
 
         [TestClass]
-        public class LastDayOfMonthTests : DateTimeExtensionsTest
+        public class LastDayOfMonthTests : DateTimeExtensionsTests
         {
             [TestMethod]
             public void MidNovemberYear2012_LastDayOfMonth_ReturnsThirtyNovember2012()
@@ -153,7 +164,7 @@ namespace DryPants.Test.Extensions
         }  
         
         [TestClass]
-        public class IsLastDayOfMonthTests : DateTimeExtensionsTest
+        public class IsLastDayOfMonthTests : DateTimeExtensionsTests
         {
             [TestMethod]
             public void IsLastDayOfMonth_ReturnsTrue_WhenSourceIsThirtyOctober2012()
@@ -175,7 +186,7 @@ namespace DryPants.Test.Extensions
         }
 
         [TestClass]
-        public class ToAgeTests : DateTimeExtensionsTest
+        public class ToAgeTests : DateTimeExtensionsTests
         {
             private readonly DateTime _birthdayHarePants = new DateTime(1985, 10, 24);
 
@@ -214,20 +225,31 @@ namespace DryPants.Test.Extensions
                 Assert.AreEqual(0, _birthdayHarePants.ToAge());
             }
         }
-    }
 
-    internal class DateTimeExtensionsTest
-    {
-        [TestInitialize]
-        public void TestInitialize()
+        [TestClass]
+        public class MinMaxTests : DateTimeExtensionsTests
         {
-            Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
-        }
+            [TestMethod]
+            public void TwoDateTimes_Min_ReturnsMinDate()
+            {
+                var min = new DateTime(2013, 3, 1);
+                var max = new DateTime(2013, 4, 1);
 
-        [TestCleanup]
-        public void TestCleanup()
-        {
-            SystemTime.Now = () => DateTime.Now;
+                DateTime actual = DateTimeExtensions.Min(min, max);
+
+                Assert.AreEqual(min, actual);
+            }
+
+            [TestMethod]
+            public void TwoDateTimes_Max_ReturnsMaxDate()
+            {
+                var min = new DateTime(2013, 3, 1);
+                var max = new DateTime(2013, 4, 1);
+
+                DateTime actual = DateTimeExtensions.Max(min, max);
+
+                Assert.AreEqual(max, actual);
+            }
         }
     }
 }

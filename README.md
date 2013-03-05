@@ -6,7 +6,7 @@ Don't repeat yourself tools for .NET
 - String extension methods for string interpolation (a.k.a. named format);
 - Ruby-style language features;
 - Exception management utility class;
-- Etc.
+- Etc. (check examples / GitHub)
 
 ## Get it on NuGet!
 
@@ -77,14 +77,19 @@ Don't repeat yourself tools for .NET
 	// Feature: Strongly typed application settings.
 	internal sealed class AppSettings : DryAppSettings
 	{
-	    public Version VersionAppSetting
+	    public Version Version
 	    {
-	        get { return GetAppSettingFor(() => VersionAppSetting); }
-	    }	
-  		public FileInfo FileInfoAppSetting
+	        get { return GetAppSettingFor(() => Version); }
+	    }
+
+  		public DirectoryInfo InstallationDir
         {
-        	get { return GetAppSettingFor(() => FileInfoAppSetting); }
+        	get { return GetAppSettingFor(() => InstallationDir); }
         }
 		// etc.
 	}
 
+	// Output:  "01/01/2010 - 01/31/2010",
+    //          "02/01/2010 - 02/14/2010"
+    var period = new Period(new DateTime(2010, 1, 1), new DateTime(2010, 2, 14))
+	period.EachMonth(month => Console.WriteLine(month));
