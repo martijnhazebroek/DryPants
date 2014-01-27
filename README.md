@@ -26,8 +26,8 @@ Don't repeat yourself tools for .NET
 	// Output: The age of a person whose birthday is 1985-10-24.    
 	new DateTime(1985, 10, 24).ToAge();   
 
-	// Output: "0 1 2 3 4".
-	5.Times(i => Console.WriteLine(i + " "));
+	// Output: "01234".
+	5.Times(Console.WriteLine);
 
 	// Output: [5, 6, 7, 8, 9, 10].
 	5.UpTo(10);
@@ -92,4 +92,4 @@ Don't repeat yourself tools for .NET
 	// Output:  "01/01/2010 - 01/31/2010",
     //          "02/01/2010 - 02/14/2010"
     var period = new Period(new DateTime(2010, 1, 1), new DateTime(2010, 2, 14))
-	period.EachMonth(month => Console.WriteLine(month));
+	period.EachMonth(Console.WriteLine);
