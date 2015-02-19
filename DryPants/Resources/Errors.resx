@@ -127,7 +127,6 @@
     <value>The start date of a period can not be past the end date.</value>
   </data>
   <data name="UnableToCreateInstanceOfTypeForAppSetting" xml:space="preserve">
-    <value>Unable to create an instance of the type {Name}.
-Implement TypeConvertAppSetting to convert to it manually.</value>
+    <value>Unable to create an instance of the type {Name}. Implement TypeConvertAppSetting to convert to it manually.</value>
   </data>
 </root>

@@ -141,7 +141,7 @@ namespace DryPants.Test.Settings
             catch (ConvertAppSettingToTypeException ex)
             {
                 const string expectedMessage = "Unable to create an instance of the type " +
-                                               "DryPants.Test.Settings.DryAppSettingsTest+CustomClassWithoutConstructor.\r\n" +
+                                               "DryPants.Test.Settings.DryAppSettingsTest+CustomClassWithoutConstructor. " +
                                                "Implement TypeConvertAppSetting to convert to it manually.";
                 Assert.AreEqual(expectedMessage, ex.Message);
                 throw;
