@@ -53,22 +53,7 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
-    <Reference Include="xunit.abstractions">
-      <HintPath>..\packages\xunit.abstractions.2.0.0-rc2-build2857\lib\net35\xunit.abstractions.dll</HintPath>
-    </Reference>
-    <Reference Include="xunit.assert">
-      <HintPath>..\packages\xunit.assert.2.0.0-rc2-build2857\lib\portable-net45+aspnetcore50+win+wpa81+wp80+monotouch+monoandroid+Xamarin.iOS\xunit.assert.dll</HintPath>
-    </Reference>
-    <Reference Include="xunit.core">
-      <HintPath>..\packages\xunit.extensibility.core.2.0.0-rc2-build2857\lib\portable-net45+aspnetcore50+win+wpa81+wp80+monotouch+monoandroid+Xamarin.iOS\xunit.core.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\Calendar.cs" />

@@ -46,13 +46,8 @@
     <NoWarn>1718</NoWarn>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Drawing" />
-    <Reference Include="xunit.abstractions">
-      <HintPath>..\packages\xunit.abstractions.2.0.0-rc2-build2857\lib\net35\xunit.abstractions.dll</HintPath>
-    </Reference>
     <Reference Include="xunit.assert">
       <HintPath>..\packages\xunit.assert.2.0.0-rc2-build2857\lib\portable-net45+aspnetcore50+win+wpa81+wp80+monotouch+monoandroid+Xamarin.iOS\xunit.assert.dll</HintPath>
     </Reference>
