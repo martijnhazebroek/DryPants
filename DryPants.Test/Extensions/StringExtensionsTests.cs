@@ -1,17 +1,17 @@
 ﻿using System.Collections.ObjectModel;
 using DryPants.Extensions;
 using JetBrains.Annotations;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace DryPants.Test.Extensions
 {
     [UsedImplicitly]
     public class StringExtensionsTests
     {
-        [TestClass]
+        
         public class EachLineTests
         {
-            [TestMethod]
+            [Fact]
             public void StringTwoNewLineChars_AddEachLineToCollection_CollecionContainsThreeExpectedLines()
             {
                 const string input = "Lorem Ipsum\nSecond line\nThird line.";
@@ -20,12 +20,11 @@ namespace DryPants.Test.Extensions
                 var actual = new Collection<string>();
                 input.EachLine(actual.Add);
 
-                CollectionAssert.AreEqual(expected, actual);
+                Assert.Equal(expected, actual);
             }
 
-            [TestMethod]
-            public void
-                StringOneCarriageReturnAndOneNewLineChar_AddEachLineToCollection_CollecionContainsThreeExpectedLines()
+            [Fact]
+            public void StringOneCarriageReturnAndOneNewLineChar_AddEachLineToCollection_CollecionContainsThreeExpectedLines()
             {
                 const string input = "Lorem Ipsum\rSecond line\nThird line.";
                 var expected = new[] {"Lorem Ipsum", "Second line", "Third line."};
@@ -33,14 +32,12 @@ namespace DryPants.Test.Extensions
                 var actual = new Collection<string>();
                 input.EachLine(actual.Add);
 
-                CollectionAssert.AreEqual(expected, actual);
+                Assert.Equal(expected, actual);
             }
         }
-
-        [TestClass]
         public class FormatNamedTests
         {
-            [TestMethod]
+            [Fact]
             public void StringWithTwoPlaceHolders_FormatWithAnonymousObject_ReturnsExpectedString()
             {
                 const string input =
@@ -50,14 +47,12 @@ namespace DryPants.Test.Extensions
                     "Just a simple test, because the actual code is written and tested by Henri Wiechers.";
                 string actual = input.FormatNamed(new {Firstname = "Henri", Surname = "Wiechers"});
 
-                Assert.AreEqual(expected, actual);
+                Assert.Equal(expected, actual);
             }
         }
-
-        [TestClass]
         public class FormatParamsTests
         {
-            [TestMethod]
+            [Fact]
             public void StringWithTwoPlaceHolders_FormatWithTwoParams_ReturnsExpectedString()
             {
                 const string input = "Just a simple test, because the actual code is written and tested by {0} {1}.";
@@ -66,7 +61,7 @@ namespace DryPants.Test.Extensions
                     "Just a simple test, because the actual code is written and tested by Microsoft teammembers.";
                 string actual = input.FormatParams("Microsoft", "teammembers");
 
-                Assert.AreEqual(expected, actual);
+                Assert.Equal(expected, actual);
             }
         }
     }

@@ -3,72 +3,72 @@ using System.Linq;
 using System.Reflection;
 using DryPants.Reflection;
 using JetBrains.Annotations;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace DryPants.Test.Reflection
 {
     [UsedImplicitly]
     public class AssemblyExtensionsTests
     {
-        [TestClass]
+        
         public class GetInstantiableTypesTests
         {
-            [TestMethod]
+            [Fact]
             public void SearchForPublicNonAbstractClass_TypeFoundInResult()
             {
-                Assert.IsTrue(Assembly.GetExecutingAssembly().GetInstantiableTypes().Any(type => type == typeof (PublicClassFake)));
+                Assert.True(Assembly.GetExecutingAssembly().GetInstantiableTypes().Any(type => type == typeof (PublicClassFake)));
             }
 
-            [TestMethod]
+            [Fact]
             public void SearchForPublicStruct_TypeFoundInResult()
             {
-                Assert.IsTrue(Assembly.GetExecutingAssembly().GetInstantiableTypes().Any(type => type == typeof (PublicStructFake)));
+                Assert.True(Assembly.GetExecutingAssembly().GetInstantiableTypes().Any(type => type == typeof (PublicStructFake)));
             }
 
-            [TestMethod]
+            [Fact]
             public void SearchForPublicInterface_TypeNotFoundInResult()
             {
-                Assert.IsFalse(Assembly.GetExecutingAssembly().GetInstantiableTypes().Any(type => type == typeof (IPublicInterfaceFake)));
+                Assert.False(Assembly.GetExecutingAssembly().GetInstantiableTypes().Any(type => type == typeof (IPublicInterfaceFake)));
             }
 
-            [TestMethod]
+            [Fact]
             public void SearchForPublicAbstractClass_TypeNotFoundInResult()
             {
-                Assert.IsFalse(Assembly.GetExecutingAssembly().GetInstantiableTypes().Any(type => type == typeof (PublicAbstractClassFake)));
+                Assert.False(Assembly.GetExecutingAssembly().GetInstantiableTypes().Any(type => type == typeof (PublicAbstractClassFake)));
             }
 
-            [TestMethod]
+            [Fact]
             public void SearchForPrivateClass_TypeNotFoundInResult()
             {
-                Assert.IsFalse(Assembly.GetExecutingAssembly().GetInstantiableTypes().Any(type => type == typeof (PrivateClassFake)));
+                Assert.False(Assembly.GetExecutingAssembly().GetInstantiableTypes().Any(type => type == typeof (PrivateClassFake)));
             }
 
-            [TestMethod]
+            [Fact]
             public void SearchForProtectedClass_TypeNotFoundInResult()
             {
-                Assert.IsFalse(Assembly.GetExecutingAssembly().GetInstantiableTypes().Any(type => type == typeof (ProtectedClassFake)));
+                Assert.False(Assembly.GetExecutingAssembly().GetInstantiableTypes().Any(type => type == typeof (ProtectedClassFake)));
             }
 
-            [TestMethod, ExpectedException(typeof (ArgumentNullException))]
+            [Fact]
             public void AssemblyNull_ThrowsArgumentNullException()
             {
-                ((Assembly) null).GetInstantiableTypes();
+                Assert.Throws<ArgumentNullException>(() => ((Assembly)null).GetInstantiableTypes());
             }
 
-            [TestMethod]
+            [Fact]
             public void AssemblyWithTypeThatExtendsOtherUnavailableType_TypeNotFoundInResultAndExecutionNotTerminated()
             {
                 // ReflectionTypeLoadException should NOT terminate program execution.
                 Type[] types = Assembly.Load(Resources.FakeLibraryA).GetInstantiableTypes();
-                Assert.IsFalse(types.Any(type => type.FullName == "FakeLibraryA.FakeClassAThatExtendsFakeClassBInOtherLibrary"));
+                Assert.False(types.Any(type => type.FullName == "FakeLibraryA.FakeClassAThatExtendsFakeClassBInOtherLibrary"));
             }
 
-            [TestMethod]
+            [Fact]
             public void AssemblyWithTypeThatExtendsOtherUnavailableType_ValidTypeFoundInResult()
             {
                 // ReflectionTypeLoadException for "FakeClassAThatExtendsFakeClassBInOtherLibrary" should not affect other types.
                 Type[] types = Assembly.Load(Resources.FakeLibraryA).GetInstantiableTypes();
-                Assert.IsTrue(types.Any(type => type.FullName == "FakeLibraryA.FakeValidClass"));
+                Assert.True(types.Any(type => type.FullName == "FakeLibraryA.FakeValidClass"));
             }
 
             private class PrivateClassFake {}

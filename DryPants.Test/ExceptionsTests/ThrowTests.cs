@@ -2,83 +2,54 @@
 using DryPants.Exceptions;
 using DryPants.Resources;
 using JetBrains.Annotations;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace DryPants.Test.ExceptionsTests
 {
     [UsedImplicitly]
     internal class ThrowTests
     {
-        [TestClass]
         public class ArgumentNullOrWhiteSpaceTests
         {
             // ReSharper disable ExpressionIsAlwaysNull
 
-            [TestMethod, ExpectedException(typeof (ArgumentNullException))]
+            [Fact]
             public void ArgumentNull_ThrowsValidExceptionWithValidMessage()
             {
                 const string input = null;
-
-                try
-                {
-                    Throw.IfArgumentNullOrWhiteSpace("input", input);
-                }
-                catch (ArgumentNullException ex)
-                {
-                    Assert.AreEqual("Value cannot be null.\r\nParameter name: input", ex.Message);
-                    throw;
-                }
+                Action action = () => Throw.IfArgumentNullOrWhiteSpace("input", input);
+                
+                AssertException<ArgumentNullException>(action, "Value cannot be null.\r\nParameter name: input");
             }
 
-            [TestMethod, ExpectedException(typeof (ArgumentNullException))]
+            [Fact]
             public void ArgumentWhiteSpace_ThrowsValidExceptionWithValidMessage()
             {
                 const string input = " ";
-
-                try
-                {
-                    Throw.IfArgumentNullOrWhiteSpace("input", input);
-                }
-                catch (ArgumentNullException ex)
-                {
-                    Assert.AreEqual("Value cannot be null.\r\nParameter name: input", ex.Message);
-                    throw;
-                }
+                Action action = () => Throw.IfArgumentNullOrWhiteSpace("input", input);
+                
+                AssertException<ArgumentNullException>(action, "Value cannot be null.\r\nParameter name: input");
             }
 
-            [TestMethod, ExpectedException(typeof (ArgumentNullException))]
+            [Fact]
             public void ArgumentEmpty_ThrowsValidExceptionWithValidMessage()
             {
                 const string input = "";
+                Action action = () => Throw.IfArgumentNullOrWhiteSpace("input", input);
 
-                try
-                {
-                    Throw.IfArgumentNullOrWhiteSpace("input", input);
-                }
-                catch (ArgumentNullException ex)
-                {
-                    Assert.AreEqual("Value cannot be null.\r\nParameter name: input", ex.Message);
-                    throw;
-                }
+                AssertException<ArgumentNullException>(action, "Value cannot be null.\r\nParameter name: input");
             }
 
-            [TestMethod, ExpectedException(typeof (ArgumentNullException))]
+            [Fact]
             public void ArgumentNameNull_ThrowsValidExceptionWithValidMessage()
             {
                 const string input = null;
+                Action action = () => Throw.IfArgumentNullOrWhiteSpace(null, input);
 
-                try
-                {
-                    Throw.IfArgumentNullOrWhiteSpace(null, input);
-                }
-                catch (ArgumentNullException ex)
-                {
-                    Assert.AreEqual("Value cannot be null.\r\nParameter name: paramName", ex.Message);
-                    throw;
-                }
+                AssertException<ArgumentNullException>(action, "Value cannot be null.\r\nParameter name: paramName");
             }
 
-            [TestMethod]
+            [Fact]
             public void ArgumentPropertyNotNullOrWhiteSpace_ThrowsNoException()
             {
                 Throw.IfArgumentNullOrWhiteSpace("paramName", "text");
@@ -88,121 +59,72 @@ namespace DryPants.Test.ExceptionsTests
 
             // ReSharper restore ExpressionIsAlwaysNull
         }
-
-        [TestClass]
         public class ArgumentNullTests
         {
             // ReSharper disable ExpressionIsAlwaysNull
 
-            [TestMethod, ExpectedException(typeof (ArgumentNullException))]
+            [Fact]
             public void ArgumentNull_ExpressionForObjectName_ThrowsValidExceptionWithValidMessage()
             {
                 TestDummy input = null;
+                Action action = () => Throw.IfArgumentNull(() => input);
 
-                try
-                {
-                    Throw.IfArgumentNull(() => input);
-                }
-                catch (ArgumentNullException ex)
-                {
-                    Assert.AreEqual("Value cannot be null.\r\nParameter name: input", ex.Message);
-                    throw;
-                }
+                AssertException<ArgumentNullException>(action, "Value cannot be null.\r\nParameter name: input");
             }
 
-            [TestMethod, ExpectedException(typeof (ArgumentNullException))]
+            [Fact]
             public void ArgumentPropertyNull_ExpressionForPropertyName_ThrowsValidExceptionWithValidMessage()
             {
                 var input = new TestDummy();
+                Action action = () => Throw.IfArgumentNull(() => input.TestString);
 
-                try
-                {
-                    Throw.IfArgumentNull(() => input.TestString);
-                }
-                catch (ArgumentNullException ex)
-                {
-                    Assert.AreEqual("Value cannot be null.\r\nParameter name: TestString", ex.Message);
-                    throw;
-                }
+                AssertException<ArgumentNullException>(action, "Value cannot be null.\r\nParameter name: TestString");
             }
 
-            [TestMethod, ExpectedException(typeof(InvalidPropertyExpressionException))]
+            [Fact]
             public void InvalidExpressionForPropertyName_ThrowsValidExceptionWithValidMessage()
             {
-                try
-                {
-                    Throw.IfArgumentNull(() => (TestDummy) null); // argument name cannot be determined
-                }
-                catch (InvalidOperationException ex)
-                {
-                    Assert.AreEqual("The given expression does not point to a property or argument name.", ex.Message);
-                    throw;
-                }
+                Action action = () => Throw.IfArgumentNull(() => (TestDummy)null);
+
+                AssertException<InvalidPropertyExpressionException>(action, "The given expression does not point to a property or argument name.");
             }
 
-            [TestMethod, ExpectedException(typeof (ArgumentNullException))]
+            [Fact]
             public void ExpressionNull_ThrowsValidExceptionWithValidMessage()
             {
-                try
-                {
-                    Throw.IfArgumentNull<object>(null);
-                }
-                catch (ArgumentNullException ex)
-                {
-                    Assert.AreEqual("Value cannot be null.\r\nParameter name: expression", ex.Message);
-                    throw;
-                }
+                Action action = () => Throw.IfArgumentNull<object>(null);
+
+                AssertException<ArgumentNullException>(action, "Value cannot be null.\r\nParameter name: expression");
             }
 
-            [TestMethod, ExpectedException(typeof (ArgumentNullException))]
+            [Fact]
             public void ArgumentNull_ObjectNameAsString_ThrowsValidExceptionWithValidMessage()
             {
                 TestDummy input = null;
 
-                try
-                {
-                    Throw.IfArgumentNull("input", input);
-                }
-                catch (ArgumentNullException ex)
-                {
-                    Assert.AreEqual("Value cannot be null.\r\nParameter name: input", ex.Message);
-                    throw;
-                }
+                Action action = () => Throw.IfArgumentNull("input", input);
+                AssertException<ArgumentNullException>(action, "Value cannot be null.\r\nParameter name: input");
             }
 
-            [TestMethod, ExpectedException(typeof (ArgumentNullException))]
+            [Fact]
             public void ArgumentNameNull_ThrowsValidExceptionWithValidMessage()
             {
                 TestDummy input = null;
 
-                try
-                {
-                    Throw.IfArgumentNull(null, input);
-                }
-                catch (ArgumentNullException ex)
-                {
-                    Assert.AreEqual("Value cannot be null.\r\nParameter name: paramName", ex.Message);
-                    throw;
-                }
+                Action action = () => Throw.IfArgumentNull(null, input);
+                AssertException<ArgumentNullException>(action, "Value cannot be null.\r\nParameter name: paramName");
             }
 
-            [TestMethod, ExpectedException(typeof (ArgumentNullException))]
+            [Fact]
             public void ArgumentPropertyNull_PropertyNameAsString_ThrowsValidExceptionWithValidMessage()
             {
                 var input = new TestDummy();
 
-                try
-                {
-                    Throw.IfArgumentNull("TestString", input.TestString);
-                }
-                catch (ArgumentNullException ex)
-                {
-                    Assert.AreEqual("Value cannot be null.\r\nParameter name: TestString", ex.Message);
-                    throw;
-                }
+                Action action = () => Throw.IfArgumentNull("TestString", input.TestString);
+                AssertException<ArgumentNullException>(action, "Value cannot be null.\r\nParameter name: TestString");
             }
 
-            [TestMethod]
+            [Fact]
             public void ArgumentPropertyNotNull_ExpressionForPropertyName_ThrowsNoException()
             {
                 var input = new TestDummy
@@ -221,6 +143,14 @@ namespace DryPants.Test.ExceptionsTests
         private class TestDummy
         {
             public string TestString { get; set; }
+        }
+
+        private static void AssertException<T>(Action action, string message)
+        {
+            Exception ex = Record.Exception(action);
+            Assert.NotNull(ex);
+            Assert.IsType<T>(ex);
+            Assert.Equal(message, ex.Message);
         }
     }
 }

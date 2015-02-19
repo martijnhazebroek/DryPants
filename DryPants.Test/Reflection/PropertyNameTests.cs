@@ -1,32 +1,24 @@
 using System;
 using DryPants.Reflection;
 using DryPants.Resources;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace DryPants.Test.Reflection
 {
-    [TestClass]
+    
     public class PropertyNameTests
     {
-        [TestMethod]
+        [Fact]
         public void For_ReturnsValidResult_WhenExpressionIsValidMemberExpression()
         {
             var testClass = new TestClass();
-            Assert.AreEqual("StringProp", PropertyName.For(() => testClass.StringProp));
+            Assert.Equal("StringProp", PropertyName.For(() => testClass.StringProp));
         }
         
-        [TestMethod, ExpectedException(typeof(InvalidPropertyExpressionException))]
+        [Fact]
         public void For_ThrowsException_WhenInstanceIsNull()
         {
-            try
-            {
-                PropertyName.For(() => (TestClass)null); 
-            }
-            catch (InvalidOperationException ex)
-            {
-                Assert.AreEqual("The given expression does not point to a property or argument name.", ex.Message);
-                throw;
-            }
+            Assert.Throws<InvalidPropertyExpressionException>(() => PropertyName.For(() => (TestClass)null));
         }
     }
 

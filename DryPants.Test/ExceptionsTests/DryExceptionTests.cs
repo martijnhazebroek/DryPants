@@ -1,34 +1,33 @@
 ﻿using System;
 using System.Runtime.Serialization;
 using DryPants.Exceptions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace DryPants.Test.ExceptionsTests
 {
-    [TestClass]
     public class DryExceptionTests
     {
         #region Tests
 
-        [TestMethod]
+        [Fact]
         public void ConstructorWithMessage_ExceptionMessageCorrectlyFormatted()
         {
             var exception = new ExceptionDummy("Car with id -1 could not be found.");
 
-            Assert.AreEqual("Car with id -1 could not be found.", exception.Message);
+            Assert.Equal("Car with id -1 could not be found.", exception.Message);
         }
 
-        [TestMethod]
+        [Fact]
         public void ConstructorWithMessageAndPropertySource_ExceptionMessageCorrectlyFormatted()
         {
             var propertySource = new { Entity = "Car", Id = -1 };
 
             var exception = new ExceptionDummy("{Entity} with id {Id} could not be found.", propertySource);
 
-            Assert.AreEqual("Car with id -1 could not be found.", exception.Message);
-        }    
-        
-        [TestMethod]
+            Assert.Equal("Car with id -1 could not be found.", exception.Message);
+        }
+
+        [Fact]
         public void ConstructorWithMessageAndPropertySourceAndInnerException_ExceptionMessageCorrectlyFormatted()
         {
             var propertySource = new { Entity = "Car", Id = -1 };
@@ -38,10 +37,10 @@ namespace DryPants.Test.ExceptionsTests
                                                propertySource,
                                                innerException);
 
-            Assert.AreEqual("Car with id -1 could not be found.", exception.Message);
+            Assert.Equal("Car with id -1 could not be found.", exception.Message);
         }
 
-        [TestMethod]
+        [Fact]
         public void ConstructorWithMessageAndInnerException_InnerExceptionPreserved()
         {
             var propertySource = new { Entity = "Car", Id = -1 };
@@ -51,10 +50,10 @@ namespace DryPants.Test.ExceptionsTests
                                                propertySource,
                                                innerException);
 
-            Assert.AreEqual("InnerExceptionMessage", exception.InnerException.Message);
+            Assert.Equal("InnerExceptionMessage", exception.InnerException.Message);
         }
 
-        [TestMethod]
+        [Fact]
         public void ConstructorWithMessageAndPropertySourceAndInnerException_ExceptionMessageCorrect()
         {
             var innerException = new Exception("InnerExceptionMessage");
@@ -62,10 +61,10 @@ namespace DryPants.Test.ExceptionsTests
             var exception = new ExceptionDummy("Car with id -1 could not be found.",
                                                innerException);
 
-            Assert.AreEqual("Car with id -1 could not be found.", exception.Message);
+            Assert.Equal("Car with id -1 could not be found.", exception.Message);
         }
-    
-        [TestMethod]
+
+        [Fact]
         public void ConstructorWithMessageAndPropertySourceAndInnerException_InnerExceptionPreserved()
         {
             var innerException = new Exception("InnerExceptionMessage");
@@ -73,26 +72,26 @@ namespace DryPants.Test.ExceptionsTests
             var exception = new ExceptionDummy("Car with id -1 could not be found.",
                                                innerException);
 
-            Assert.AreEqual("InnerExceptionMessage", exception.InnerException.Message);
-        }  
-        
-        [TestMethod]
+            Assert.Equal("InnerExceptionMessage", exception.InnerException.Message);
+        }
+
+        [Fact]
         public void DefaultConstructor_ReturnsDefaultMessage()
         {
             var exception = new ExceptionDummy();
-            Assert.AreEqual("Exception of type 'DryPants.Test.ExceptionsTests.DryExceptionTests+ExceptionDummy' was thrown.", exception.Message);
+            Assert.Equal("Exception of type 'DryPants.Test.ExceptionsTests.DryExceptionTests+ExceptionDummy' was thrown.", exception.Message);
         }
 
         #endregion
 
         #region Dummies
-        
+
         [Serializable]
         class ExceptionDummy : DryException
         {
             public ExceptionDummy()
             {
-                
+
             }
 
             public ExceptionDummy(string message)

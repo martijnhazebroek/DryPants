@@ -10,10 +10,13 @@ namespace DryPants.Extensions
 
         public static int ToAge(this DateTime birthday)
         {
-            DateTime now = SystemTime.Now();
+            return ToAge(birthday, SystemTime.Now());
+        }
 
-            int age = now.Year - birthday.Year;
-            age = birthday > now.AddYears(-age) ? age - 1 : age;
+        internal static int ToAge(this DateTime birthday, DateTime today)
+        {
+            int age = today.Year - birthday.Year;
+            age = birthday > today.AddYears(-age) ? age - 1 : age;
             age = Math.Max(0, age);
 
             return age;

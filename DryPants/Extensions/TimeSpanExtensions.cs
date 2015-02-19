@@ -17,12 +17,22 @@ namespace DryPants.Extensions
 
         public static DateTime Ago(this TimeSpan source)
         {
-            return SystemTime.Now().Subtract(source);
+            return Ago(source, SystemTime.Now());
+        }
+
+        public static DateTime Ago(this TimeSpan source, DateTime now)
+        {
+            return now.Subtract(source);
         }
 
         public static DateTime FromNow(this TimeSpan source)
         {
-            return SystemTime.Now().Add(source);
+            return FromNow(source, SystemTime.Now());
+        }
+
+        internal static DateTime FromNow(this TimeSpan source, DateTime now)
+        {
+            return now.Add(source);
         }
     }
 }

@@ -1,165 +1,149 @@
 ﻿using DryPants.Resources;
 using DryPants.Settings;
 using JetBrains.Annotations;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Drawing;
 using System.IO;
 using System.Text.RegularExpressions;
+using Xunit;
 
 namespace DryPants.Test.Settings
-{
-    [TestClass]
+{   
     public class DryAppSettingsTest
     {
         #region Tests
 
-        [TestMethod]
+        [Fact]
         public void GetBoolAppSetting_ReturnsValidBool()
         {
-            Assert.IsTrue(AppSettings.Instance.BoolAppSetting);
+            Assert.True(AppSettings.Instance.BoolAppSetting);
         } 
    
-        [TestMethod]
+        [Fact]
         public void GetDecimalAppSetting_ReturnsValidDecimal()
         {
-            Assert.AreEqual(100.000M, AppSettings.Instance.DecimalAppSetting);
+            Assert.Equal(100.000M, AppSettings.Instance.DecimalAppSetting);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetColorAppSetting_ReturnsValidColor()
         {
-            Assert.AreEqual(Color.Red, AppSettings.Instance.ColorAppSetting);
+            Assert.Equal(Color.Red, AppSettings.Instance.ColorAppSetting);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetCustomEnumAppSettingAppSetting_ReturnsValidEnum()
         {
-            Assert.AreEqual(CustomEnum.Value2, AppSettings.Instance.CustomEnumAppSetting);
+            Assert.Equal(CustomEnum.Value2, AppSettings.Instance.CustomEnumAppSetting);
         }
       
-        [TestMethod]
+        [Fact]
         public void GetFileInfoAppSetting_ReturnsValidFileInfo()
         {
-            Assert.AreEqual("Setup.exe", AppSettings.Instance.FileInfoAppSetting.Name);
+            Assert.Equal("Setup.exe", AppSettings.Instance.FileInfoAppSetting.Name);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetFileInfoAppSetting_ReturnsExpandedPath_WhenEnvironmentVariableInAppSetting()
         {
-            Assert.IsFalse(AppSettings.Instance.FileInfoAppSetting.FullName.Contains("%TEMP%"));
+            Assert.False(AppSettings.Instance.FileInfoAppSetting.FullName.Contains("%TEMP%"));
         }
 
-        [TestMethod]
+        [Fact]
         public void GetDirectoryInfoAppSetting_ReturnsValidDirectoryInfo()
         {
-            Assert.AreEqual("MyApp", AppSettings.Instance.DirectoryInfoAppSetting.Name);
+            Assert.Equal("MyApp", AppSettings.Instance.DirectoryInfoAppSetting.Name);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetDirectoryInfoAppSetting_ReturnsExpandedPath_WhenEnvironmentVariableInAppSetting()
         {
-            Assert.IsFalse(AppSettings.Instance.DirectoryInfoAppSetting.FullName.Contains("%TEMP%"));
+            Assert.False(AppSettings.Instance.DirectoryInfoAppSetting.FullName.Contains("%TEMP%"));
         }
 
-        [TestMethod]
+        [Fact]
         public void GetRegexAppSetting_ReturnsValidRegex()
         {
-            Assert.AreEqual(new Regex("^*.jpg$").ToString(), AppSettings.Instance.RegexAppSetting.ToString());
+            Assert.Equal(new Regex("^*.jpg$").ToString(), AppSettings.Instance.RegexAppSetting.ToString());
         }
 
-        [TestMethod]
+        [Fact]
         public void GetVersionAppSetting_ReturnsValidVersion()
         {
-            Assert.AreEqual(new Version(1, 0, 0, 0), AppSettings.Instance.VersionAppSetting);
+            Assert.Equal(new Version(1, 0, 0, 0), AppSettings.Instance.VersionAppSetting);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetListAppSetting_ReturnsValidStringList()
         {
-            Assert.AreEqual(3, AppSettings.Instance.ListAppSetting.Count);
-            Assert.AreEqual("first", AppSettings.Instance.ListAppSetting[0]);
-            Assert.AreEqual("second", AppSettings.Instance.ListAppSetting[1]);
-            Assert.AreEqual("third", AppSettings.Instance.ListAppSetting[2]);
+            Assert.Equal(3, AppSettings.Instance.ListAppSetting.Count);
+            Assert.Equal("first", AppSettings.Instance.ListAppSetting[0]);
+            Assert.Equal("second", AppSettings.Instance.ListAppSetting[1]);
+            Assert.Equal("third", AppSettings.Instance.ListAppSetting[2]);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetClassWithStringConstructorAppSetting_ReturnsValidClassInstance()
         {
             CustomClassWithStringConstructor instance =
                 AppSettings.Instance.CustomClassStringConstructorAppSetting;
 
-            Assert.AreEqual("CustomClassStringConstructorAppSetting", instance.StringValue);
+            Assert.Equal("CustomClassStringConstructorAppSetting", instance.StringValue);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetClassCustomConverterAppSetting_ReturnsValidClassInstance()
         {
             CustomClassWithExoticConstructor instance =
                 AppSettings.Instance.CustomClassExoticConstructorAppSetting;
 
-            Assert.AreEqual("CustomClassExoticConstructorAppSetting", instance.StringValue);
-            Assert.AreEqual(1, instance.OtherValue);
+            Assert.Equal("CustomClassExoticConstructorAppSetting", instance.StringValue);
+            Assert.Equal(1, instance.OtherValue);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetClassCustomConverterAppSetting_ReturnsValidClassInstanceFromCache_WhenInvokedMoreThanOnce()
         {
             CustomClassWithExoticConstructor instance =
                 AppSettings.Instance.CustomClassExoticConstructorAppSetting;
-
-            instance = AppSettings.Instance.CustomClassExoticConstructorAppSetting;
-
-            Assert.AreEqual("CustomClassExoticConstructorAppSetting", instance.StringValue);
-            Assert.AreEqual(1, instance.OtherValue);
+            
+            Assert.Equal("CustomClassExoticConstructorAppSetting", instance.StringValue);
+            Assert.Equal(1, instance.OtherValue);
         }
 
-        [TestMethod, ExpectedException(typeof (AppSettingDoesNotExistException))]
+        [Fact]
         public void GetNonExistentAppSetting_ThrowsAppSettingDoesNotExistException()
         {
 #pragma warning disable 168
-            string nonExistentAppSetting = AppSettings.Instance.NonExistentAppSetting;
+            Assert.Throws<AppSettingDoesNotExistException>(() => AppSettings.Instance.NonExistentAppSetting);
 #pragma warning restore 168
         }
 
-        [TestMethod]
+        [Fact]
         public void GetAppStringSetting_DecoratedAppSetting_ReturnsValidResult()
         {
-            Assert.AreEqual("BadNameForAppSetting", AppSettings.Instance.BetterNameForAppSetting);
+            Assert.Equal("BadNameForAppSetting", AppSettings.Instance.BetterNameForAppSetting);
         }
 
-        [TestMethod, ExpectedException(typeof(ConvertAppSettingToTypeException))]
+        [Fact]
         public void GetAppSettingCustomClass_ThrowsException_WhenAppSettingCannotBeConverted_()
         {
-#pragma warning disable 168
-            try
-            {
-                CustomClassWithoutConstructor value = AppSettings.Instance.BadAppSetting;
-            }
-            catch (ConvertAppSettingToTypeException ex)
-            {
-                const string expectedMessage = "Unable to create an instance of the type " +
-                                               "DryPants.Test.Settings.DryAppSettingsTest+CustomClassWithoutConstructor. " +
-                                               "Implement TypeConvertAppSetting to convert to it manually.";
-                Assert.AreEqual(expectedMessage, ex.Message);
-                throw;
-            }
-#pragma warning restore 168
+            Assert.Throws<ConvertAppSettingToTypeException>(() => AppSettings.Instance.BadAppSetting);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetAppSettingString_ReturnsValidStringResult_WhenAppSettingIsNotMocked()
         {
             var appSettings = new RealAppSettings();
-            Assert.AreEqual("TestAppSettingValue", appSettings.TestAppSetting);
+            Assert.Equal("TestAppSettingValue", appSettings.TestAppSetting);
         }
         
-        [TestMethod]
+        [Fact]
         public void GetAppSettingString_ReturnsValidStringResult_WhenExecutedOnMultipleThreads()
         {
-            Action test = () => Assert.AreEqual("Setup.exe", AppSettings.Instance.FileInfoAppSetting.Name);
+            Action test = () => Assert.Equal("Setup.exe", AppSettings.Instance.FileInfoAppSetting.Name);
             test.OnMultipleThreads(numberOfThreads: 25);
         }
 
@@ -281,7 +265,7 @@ namespace DryPants.Test.Settings
 
             public CustomClassWithoutConstructor BadAppSetting
             {
-                get { return GetAppSettingFor(() => BadAppSetting); ; }
+                get { return GetAppSettingFor(() => BadAppSetting); }
             }
 
             #endregion

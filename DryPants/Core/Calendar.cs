@@ -8,7 +8,6 @@ namespace DryPants.Core
     {
         #region Fields
 
-        private static readonly Func<DateTime> DateTimeFunc = SystemTime.Today;
         private static readonly CultureInfo ActiveCulture = CultureInfo.CurrentCulture;
 
         #endregion
@@ -22,7 +21,7 @@ namespace DryPants.Core
 
         private static DateTime Today
         {
-            get { return DateTimeFunc(); }
+            get { return SystemTime.Now().Date; }
         }
 
         public static DateTime Tomorrow

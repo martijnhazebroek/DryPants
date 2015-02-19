@@ -3,29 +3,16 @@ using System.Globalization;
 using System.Threading;
 using DryPants.Core;
 using DryPants.Extensions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using DryPants.Test.Core;
+using Xunit;
 
 namespace DryPants.Test.Extensions
 {
-    [TestClass]
     public class DateTimeExtensionsTests
     {
-        [TestInitialize]
-        public void TestInitialize()
+        public class AfterTests
         {
-            Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
-        }
-
-        [TestCleanup]
-        public void TestCleanup()
-        {
-            SystemTime.Now = () => DateTime.Now;
-        }
-
-        [TestClass]
-        public class AfterTests : DateTimeExtensionsTests
-        {
-            [TestMethod]
+            [Fact]
             public void DateTimeWithHoursMinutesAndSeconds_10DaysAfter_Returns10DaysAfterGivenDate()
             {
                 var givenDate = new DateTime(2012, 12, 13, 1, 2, 3);
@@ -34,25 +21,20 @@ namespace DryPants.Test.Extensions
                 DateTime actual = timeSpanTenDays.After(givenDate);
                 var expected = new DateTime(2012, 12, 23, 1, 2, 3);
 
-                Assert.AreEqual(expected, actual);
+                Assert.Equal(expected, actual);
             }
         }
-
-        [TestClass]
-        public class AgoTests : DateTimeExtensionsTests
+        public class AgoTests
         {
-            [TestMethod]
+            [Fact]
             public void DateTimeWithHoursMinutesAndSeconds_10DaysAgo_ReturnsDateTimeNowMinus10Days()
             {
-                SystemTime.Now = () => new DateTime(2012, 12, 31, 1, 2, 3);
-                Assert.AreEqual(new DateTime(2012, 12, 21, 1, 2, 3), new TimeSpan(10, 0, 0, 0).Ago());
+                Assert.Equal(new DateTime(2012, 12, 21, 1, 2, 3), new TimeSpan(10, 0, 0, 0).Ago(new DateTime(2012, 12, 31, 1, 2, 3)));
             }
         }
-
-        [TestClass]
-        public class BeforeTests : DateTimeExtensionsTests
+        public class BeforeTests
         {
-            [TestMethod]
+            [Fact]
             public void DateTimeWithHoursMinutesAndSeconds_10DaysBefore_Returns10DaysBeforeGivenDate()
             {
                 var givenDate = new DateTime(2012, 12, 13, 1, 2, 3);
@@ -61,175 +43,162 @@ namespace DryPants.Test.Extensions
                 DateTime actual = timeSpanTenDays.Before(givenDate);
                 var expected = new DateTime(2012, 12, 3, 1, 2, 3);
 
-                Assert.AreEqual(expected, actual);
+                Assert.Equal(expected, actual);
             }
         }
-
-        [TestClass]
-        public class FirstDayOfMonthTests : DateTimeExtensionsTests
+        public class FirstDayOfMonthTests
         {
-            [TestMethod]
+            [Fact]
             public void MidNovemberYear2012_FirstDayOfMonth_Returns1November2012()
             {
-                Assert.AreEqual(new DateTime(2012, 11, 1), new DateTime(2012, 11, 11).FirstDayOfMonth());
+                Assert.Equal(new DateTime(2012, 11, 1), new DateTime(2012, 11, 11).FirstDayOfMonth());
             }
 
-            [TestMethod]
+            [Fact]
             public void FirstOfNovemberYear2012_FirstDayOfMonth_Returns1November2012()
             {
-                Assert.AreEqual(new DateTime(2012, 11, 1), new DateTime(2012, 11, 1).FirstDayOfMonth());
+                Assert.Equal(new DateTime(2012, 11, 1), new DateTime(2012, 11, 1).FirstDayOfMonth());
             }
         }
-
-        [TestClass]
-        public class FirstDayOfWeekTests : DateTimeExtensionsTests
+        public class FirstDayOfWeekTests
         {
-            [TestMethod]
+            [Fact]
             public void RegularWednesday_ReturnsExpectedDayOfWeek()
             {
-                Assert.AreEqual(CultureInfo.CurrentCulture.DateTimeFormat.FirstDayOfWeek,
-                                new DateTime(2012, 11, 13).FirstDayOfWeek().DayOfWeek);
+                using (new ThreadCultureScope(Thread.CurrentThread.CurrentCulture))
+                {
+                    Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
+
+                    Assert.Equal(CultureInfo.CurrentCulture.DateTimeFormat.FirstDayOfWeek,
+                        new DateTime(2012, 11, 13).FirstDayOfWeek().DayOfWeek);
+                }
             }
 
-            [TestMethod]
+            [Fact]
             public void RegularWednesday_ReturnsExpectedDate()
             {
-                Assert.AreEqual(new DateTime(2012, 11, 11), new DateTime(2012, 11, 13).FirstDayOfWeek());
+                using (new ThreadCultureScope(Thread.CurrentThread.CurrentCulture))
+                {
+                    Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
+
+                    Assert.Equal(new DateTime(2012, 11, 11), new DateTime(2012, 11, 13).FirstDayOfWeek());
+                }
             }
         }
-
-        [TestClass]
-        public class FromNowTests : DateTimeExtensionsTests
+        public class FromNowTests
         {
-            [TestMethod]
+            [Fact]
             public void DateTimeWithHoursMinutesAndSeconds_10DaysFromNow_ReturnsDateTimePlus10Days()
             {
-                SystemTime.Now = () => new DateTime(2012, 12, 31, 1, 2, 3);
-                Assert.AreEqual(new DateTime(2013, 1, 10, 1, 2, 3), new TimeSpan(10, 0, 0, 0).FromNow());
+                Assert.Equal(new DateTime(2013, 1, 10, 1, 2, 3), new TimeSpan(10, 0, 0, 0).FromNow(new DateTime(2012, 12, 31, 1, 2, 3)));
             }
         }
 
-        [TestClass]
-        public class GetDaysInMonthTests : DateTimeExtensionsTests
+        public class GetDaysInMonthTests
         {
-            [TestMethod]
+            [Fact]
             public void NormalYearFebruary_Returns28Days()
             {
-                Assert.AreEqual(28, new DateTime(2010, 2, 1).GetDaysInMonth());
+                Assert.Equal(28, new DateTime(2010, 2, 1).GetDaysInMonth());
             }
 
-            [TestMethod]
+            [Fact]
             public void LeapYearFebruary_Returns29Days()
             {
-                Assert.AreEqual(29, new DateTime(2012, 2, 1).GetDaysInMonth());
+                Assert.Equal(29, new DateTime(2012, 2, 1).GetDaysInMonth());
             }
         }
-
-        [TestClass]
-        public class GetDaysInYearTests : DateTimeExtensionsTests
+        public class GetDaysInYearTests
         {
-            [TestMethod]
+            [Fact]
             public void NormalYear_Returns365Days()
             {
-                Assert.AreEqual(365, new DateTime(2010, 1, 1).GetDaysInYear());
+                Assert.Equal(365, new DateTime(2010, 1, 1).GetDaysInYear());
             }
 
-            [TestMethod]
+            [Fact]
             public void LeapYear_Returns366Days()
             {
-                Assert.AreEqual(366, new DateTime(2012, 1, 1).GetDaysInYear());
+                Assert.Equal(366, new DateTime(2012, 1, 1).GetDaysInYear());
             }
         }
-
-        [TestClass]
-        public class LastDayOfMonthTests : DateTimeExtensionsTests
+        public class LastDayOfMonthTests
         {
-            [TestMethod]
+            [Fact]
             public void MidNovemberYear2012_LastDayOfMonth_ReturnsThirtyNovember2012()
             {
-                Assert.AreEqual(new DateTime(2012, 11, 30), new DateTime(2012, 11, 11).LastDayOfMonth());
+                Assert.Equal(new DateTime(2012, 11, 30), new DateTime(2012, 11, 11).LastDayOfMonth());
             }
 
-            [TestMethod]
+            [Fact]
             public void FirstOfNovemberYear2012_LastDayOfMonth_ReturnsThirtyNovember2012()
             {
-                Assert.AreEqual(new DateTime(2012, 11, 30), new DateTime(2012, 11, 1).LastDayOfMonth());
+                Assert.Equal(new DateTime(2012, 11, 30), new DateTime(2012, 11, 1).LastDayOfMonth());
             }
 
-            [TestMethod]
+            [Fact]
             public void FirstOfOctoberYear2012_LastDayOfMonth_ReturnsThirtyOctober2012()
             {
-                Assert.AreEqual(new DateTime(2012, 10, 31), new DateTime(2012, 10, 31).LastDayOfMonth());
-            }
-        }  
-        
-        [TestClass]
-        public class IsLastDayOfMonthTests : DateTimeExtensionsTests
-        {
-            [TestMethod]
-            public void IsLastDayOfMonth_ReturnsTrue_WhenSourceIsThirtyOctober2012()
-            {
-                Assert.IsTrue(new DateTime(2012, 10, 31).IsLastDayOfMonth());
-            }
-            
-            [TestMethod]
-            public void IsLastDayOfMonth_ReturnsTrue_WhenSourceIsTwentyNineFebrOnLeapYear()
-            {
-                Assert.IsTrue(new DateTime(2012, 2, 29).IsLastDayOfMonth());
-            }
-
-            [TestMethod]
-            public void IsLastDayOfMonth_ReturnsFalse_WhenSourceIsTwentyEightFebrOnLeapYear()
-            {
-                Assert.IsFalse(new DateTime(2012, 2, 28).IsLastDayOfMonth());
+                Assert.Equal(new DateTime(2012, 10, 31), new DateTime(2012, 10, 31).LastDayOfMonth());
             }
         }
+        public class IsLastDayOfMonthTests
+        {
+            [Fact]
+            public void IsLastDayOfMonth_ReturnsTrue_WhenSourceIsThirtyOctober2012()
+            {
+                Assert.True(new DateTime(2012, 10, 31).IsLastDayOfMonth());
+            }
 
-        [TestClass]
-        public class ToAgeTests : DateTimeExtensionsTests
+            [Fact]
+            public void IsLastDayOfMonth_ReturnsTrue_WhenSourceIsTwentyNineFebrOnLeapYear()
+            {
+                Assert.True(new DateTime(2012, 2, 29).IsLastDayOfMonth());
+            }
+
+            [Fact]
+            public void IsLastDayOfMonth_ReturnsFalse_WhenSourceIsTwentyEightFebrOnLeapYear()
+            {
+                Assert.False(new DateTime(2012, 2, 28).IsLastDayOfMonth());
+            }
+        }
+        public class ToAgeTests
         {
             private readonly DateTime _birthdayHarePants = new DateTime(1985, 10, 24);
 
-            [TestMethod]
+            [Fact]
             public void DayMethodWasImplemented_IWas27YearsOld()
             {
-                SystemTime.Now = () => new DateTime(2012, 11, 12);
-                Assert.AreEqual(27, _birthdayHarePants.ToAge());
+                Assert.Equal(27, _birthdayHarePants.ToAge(new DateTime(2012, 11, 12)));
             }
 
-            [TestMethod]
+            [Fact]
             public void OnMyBirthday_IWas27YearsOld()
             {
-                SystemTime.Now = () => new DateTime(2012, 10, 24);
-                Assert.AreEqual(27, _birthdayHarePants.ToAge());
+                Assert.Equal(27, _birthdayHarePants.ToAge(new DateTime(2012, 10, 24)));
             }
 
-            [TestMethod]
+            [Fact]
             public void YearMethodWasImplemented_OneSecondBeforeMyBirthday_IWas26YearsOld()
             {
-                SystemTime.Now = () => new DateTime(2012, 9, 23, 23, 59, 59);
-                Assert.AreEqual(26, _birthdayHarePants.ToAge());
+                Assert.Equal(26, _birthdayHarePants.ToAge(new DateTime(2012, 9, 23, 23, 59, 59)));
             }
 
-            [TestMethod]
+            [Fact]
             public void InMyMothersWomb_IWasZeroYearsOld()
             {
-                SystemTime.Now = () => new DateTime(1985, 10, 23);
-                Assert.AreEqual(0, _birthdayHarePants.ToAge());
+                Assert.Equal(0, _birthdayHarePants.ToAge(new DateTime(1985, 10, 23)));
             }
 
-            [TestMethod]
+            [Fact]
             public void NotEvenInThePicture_IWasZeroYearsOld()
             {
-                SystemTime.Now = () => new DateTime(1967, 1, 2);
-                Assert.AreEqual(0, _birthdayHarePants.ToAge());
+                Assert.Equal(0, _birthdayHarePants.ToAge(new DateTime(1967, 1, 2)));
             }
         }
-
-        [TestClass]
-        public class MinMaxTests : DateTimeExtensionsTests
+        public class MinMaxTests
         {
-            [TestMethod]
+            [Fact]
             public void TwoDateTimes_Min_ReturnsMinDate()
             {
                 var min = new DateTime(2013, 3, 1);
@@ -237,10 +206,10 @@ namespace DryPants.Test.Extensions
 
                 DateTime actual = DateTimeExtensions.Min(min, max);
 
-                Assert.AreEqual(min, actual);
+                Assert.Equal(min, actual);
             }
 
-            [TestMethod]
+            [Fact]
             public void TwoDateTimes_Max_ReturnsMaxDate()
             {
                 var min = new DateTime(2013, 3, 1);
@@ -248,7 +217,7 @@ namespace DryPants.Test.Extensions
 
                 DateTime actual = DateTimeExtensions.Max(min, max);
 
-                Assert.AreEqual(max, actual);
+                Assert.Equal(max, actual);
             }
         }
     }

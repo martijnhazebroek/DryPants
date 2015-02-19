@@ -1,26 +1,24 @@
 ﻿using DryPants.Core;
 using DryPants.Extensions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading;
+using Xunit;
 
 namespace DryPants.Test.Extensions
 {
     internal class PeriodExtensionsTests
     {
-        [TestInitialize]
-        public void TestInitialize()
+        public PeriodExtensionsTests()
         {
             Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
         }
 
-        [TestClass]
         public class EachMonthExtensionsTests : PeriodExtensionsTests
         {
-            [TestMethod]
+            [Fact]
             public void SingleDay_PeriodOfSingleDay()
             {
                 var period = new Period(new DateTime(2010, 1, 1), new DateTime(2010, 1, 1));
@@ -29,7 +27,7 @@ namespace DryPants.Test.Extensions
                 AssertPeriodBasedOnToStrings(period, expected);
             }
 
-            [TestMethod]
+            [Fact]
             public void SingleMonth_PeriodOfTwoFullMonths()
             {
                 var period = new Period(new DateTime(2010, 1, 1), new DateTime(2010, 1, 31));
@@ -38,7 +36,7 @@ namespace DryPants.Test.Extensions
                 AssertPeriodBasedOnToStrings(period, expected);
             }
 
-            [TestMethod]
+            [Fact]
             public void TwoMonths_PeriodOfTwoFullMonths()
             {
                 var period = new Period(new DateTime(2010, 1, 1), new DateTime(2010, 2, 28));
@@ -51,7 +49,7 @@ namespace DryPants.Test.Extensions
                 AssertPeriodBasedOnToStrings(period, expected);
             }
 
-            [TestMethod]
+            [Fact]
             public void TwoAndHalfMonth_PeriodsOfOneFullAndOnePartialMonth()
             {
                 var expected = new[]
@@ -65,7 +63,7 @@ namespace DryPants.Test.Extensions
                 AssertPeriodBasedOnToStrings(period, expected);
             }
 
-            [TestMethod]
+            [Fact]
             public void TwoMonthsLeapYear_PeriodOfTwoFullMonths()
             {
                 var period = new Period(new DateTime(2012, 1, 1), new DateTime(2012, 2, 29));
@@ -78,7 +76,7 @@ namespace DryPants.Test.Extensions
                 AssertPeriodBasedOnToStrings(period, expected);
             }
 
-            [TestMethod]
+            [Fact]
             public void ThreeMonthsLastMonthOneSingleDay_PeriodOfTwoFullMonthsAndOneSingleDay()
             {
                 var period = new Period(new DateTime(2012, 1, 1), new DateTime(2012, 3, 1));
@@ -97,7 +95,7 @@ namespace DryPants.Test.Extensions
                 var actual = new List<string>();
                 period.EachMonth(monthPeriod => actual.Add(monthPeriod.ToString()));
 
-                CollectionAssert.AreEqual(expectedToStringCollection.ToList(), actual);
+                Assert.Equal(expectedToStringCollection.ToList(), actual);
             }
         }
     }

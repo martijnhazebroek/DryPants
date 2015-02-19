@@ -1,45 +1,45 @@
 ﻿using System.Text;
 using DryPants.Extensions;
 using JetBrains.Annotations;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
+
 
 namespace DryPants.Test.Extensions
 {
     [UsedImplicitly]
     internal class StringBuilderExtensionsTests
     {
-        [TestClass]
+        
         public class AppendIfTests
         {
             private StringBuilder _sut;
 
-            [TestInitialize]
-            public void TestInitialize()
+            public AppendIfTests()
             {
                 _sut = new StringBuilder();
             }
 
-            [TestMethod]
+            [Fact]
             public void PredicateIsTrue_AppendIf_AppendsTextToStringBuilder()
             {
                 const bool somePredicate = true;
 
                 StringBuilder builder = _sut.AppendIf(somePredicate, "Text was added.");
 
-                Assert.AreEqual("Text was added.", builder.ToString());
+                Assert.Equal("Text was added.", builder.ToString());
             }
 
-            [TestMethod]
+            [Fact]
             public void PredicateIsFalse_AppendIf_DoesNotAppendTextToStringBuilder()
             {
                 const bool somePredicate = false;
 
                 StringBuilder builder = _sut.AppendIf(somePredicate, "Text was added.");
 
-                Assert.AreEqual("", builder.ToString());
+                Assert.Equal("", builder.ToString());
             }
 
-            [TestMethod]
+            [Fact]
             public void PredicateIsTrue_AppendFormatIf_AppendsTextToStringBuilder()
             {
                 const bool somePredicate = true;
@@ -47,10 +47,10 @@ namespace DryPants.Test.Extensions
 
                 StringBuilder builder = _sut.AppendFormatIf(somePredicate, format, somePredicate.ToString());
 
-                Assert.AreEqual("The predicate provided was True.", builder.ToString());
+                Assert.Equal("The predicate provided was True.", builder.ToString());
             }
 
-            [TestMethod]
+            [Fact]
             public void PredicateIsFalse_AppendFormatIf_DoesNotAppendTextToStringBuilder()
             {
                 const bool somePredicate = false;
@@ -58,10 +58,10 @@ namespace DryPants.Test.Extensions
 
                 StringBuilder builder = _sut.AppendFormatIf(somePredicate, format, somePredicate.ToString());
 
-                Assert.AreEqual("", builder.ToString());
+                Assert.Equal("", builder.ToString());
             }  
             
-            [TestMethod, TestCategory("Integration")]
+            [Fact]
             public void MultipleAppendIfs_AllTextsWithValidPredicatesAreAppendedToStringBuilder()
             {
                 const int number = -2;
@@ -72,7 +72,7 @@ namespace DryPants.Test.Extensions
                                             .AppendIf(number%2 != 0, "odd")
                                             .Append(" number.");
 
-                Assert.AreEqual("Minus 2 is an even number.", builder.ToString());
+                Assert.Equal("Minus 2 is an even number.", builder.ToString());
             }
         }
     }

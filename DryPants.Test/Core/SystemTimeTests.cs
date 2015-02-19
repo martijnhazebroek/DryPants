@@ -1,28 +1,31 @@
 ﻿using System;
 using DryPants.Core;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace DryPants.Test.Core
 {
-    [TestClass]
+    
     public class SystemTimeTests
-    {
-        [TestCleanup]
-        public void TestCleanup()
-        {
-            SystemTime.Now = () => DateTime.Now;
-        }
-
-        [TestMethod]
+    {       
+        [Fact]
         public void DefaultNow_ReturnsDateTimeNow()
         {
-            Assert.AreEqual(DateTime.Now.ToString("yyyyMMddhhmmss"), SystemTime.Now().ToString("yyyyMMddhhmmss"));
+            using (new SystemTimeScope())
+            {
+                DateTime testValue = DateTime.Now;
+                SystemTime.Now = () => testValue;
+
+                Assert.Equal(testValue.ToString("yyyyMMddhhmmss"), SystemTime.Now().ToString("yyyyMMddhhmmss"));
+            }
         }
 
-        [TestMethod]
+        [Fact]
         public void DefaultToday_ReturnsDateTimeToday()
         {
-            Assert.AreEqual(DateTime.Today, SystemTime.Today());
+            using (new SystemTimeScope())
+            {
+                Assert.Equal(DateTime.Today, SystemTime.Now().Date);
+            }
         }
     }
 }

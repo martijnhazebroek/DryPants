@@ -1,32 +1,32 @@
 ﻿using System;
 using DryPants.Extensions;
 using JetBrains.Annotations;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace DryPants.Test.Extensions
 {
     [UsedImplicitly]
     internal class EnumExtensionsTests
     {
-        [TestClass]
+        
         public class IsOneOfTests
         {
-            [TestMethod]
+            [Fact]
             public void EnumValue_IsOneOfSelf()
             {
-                Assert.IsTrue(ConsoleColor.Blue.IsOneOf(ConsoleColor.Blue));
+                Assert.True(ConsoleColor.Blue.IsOneOf(ConsoleColor.Blue));
             }
 
-            [TestMethod]
+            [Fact]
             public void EnumValue_IsOneOfSelfAndOther()
             {
-                Assert.IsTrue(ConsoleColor.Blue.IsOneOf(ConsoleColor.Blue, ConsoleColor.Red));
+                Assert.True(ConsoleColor.Blue.IsOneOf(ConsoleColor.Blue, ConsoleColor.Red));
             }
 
-            [TestMethod]
+            [Fact]
             public void EnumValue_IsNotOneOfOther()
             {
-                Assert.IsFalse(ConsoleColor.Blue.IsOneOf(ConsoleColor.Red));
+                Assert.False(ConsoleColor.Blue.IsOneOf(ConsoleColor.Red));
             }
         }
     }
