@@ -1,3 +1,5 @@
+[![Build status](https://ci.appveyor.com/api/projects/status/vh2p923cxlwv8of5/branch/master?svg=true)](https://ci.appveyor.com/project/martijnhazebroek/drypants/branch/master)
+
 # DryPants
 Don't repeat yourself tools for .NET
 
