@@ -47,7 +47,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="xunit.abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
       <HintPath>..\packages\xunit.abstractions.2.0.0-rc2-build2857\lib\net35\xunit.abstractions.dll</HintPath>
     </Reference>
@@ -73,15 +75,15 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="Core\PercentageTests.cs" />
     <Compile Include="Core\PeriodTests.cs" />
-    <Compile Include="Core\SystemTimeScope.cs" />
-    <Compile Include="Core\ThreadCultureScope.cs" />
+    <Compile Include="Extensions\EnumberableExtensionsTest.cs" />
     <Compile Include="Extensions\PeriodExtensionsTests.cs" />
     <Compile Include="TestExtensions.cs" />
     <Compile Include="Core\CalenderTests.cs" />
     <Compile Include="Core\SystemTimeTests.cs" />
-    <Compile Include="ExceptionsTests\DryExceptionTests.cs" />
-    <Compile Include="ExceptionsTests\ThrowTests.cs" />
+    <Compile Include="Exceptions\DryExceptionTests.cs" />
+    <Compile Include="Exceptions\ThrowTests.cs" />
     <Compile Include="Extensions\CharExtensionsTests.cs" />
     <Compile Include="Extensions\StringBuilderExtensionsTests.cs" />
     <Compile Include="Extensions\EnumExtensionsTests.cs" />

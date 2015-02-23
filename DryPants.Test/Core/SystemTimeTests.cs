@@ -4,28 +4,21 @@ using Xunit;
 
 namespace DryPants.Test.Core
 {
-    
     public class SystemTimeTests
-    {       
+    {
         [Fact]
         public void DefaultNow_ReturnsDateTimeNow()
         {
-            using (new SystemTimeScope())
-            {
-                DateTime testValue = DateTime.Now;
-                SystemTime.Now = () => testValue;
+            DateTime testValue = DateTime.Now;
+            SystemTime.Now = () => testValue;
 
-                Assert.Equal(testValue.ToString("yyyyMMddhhmmss"), SystemTime.Now().ToString("yyyyMMddhhmmss"));
-            }
+            Assert.Equal(testValue.ToString("yyyyMMddhhmmss"), SystemTime.Now().ToString("yyyyMMddhhmmss"));
         }
 
         [Fact]
         public void DefaultToday_ReturnsDateTimeToday()
         {
-            using (new SystemTimeScope())
-            {
-                Assert.Equal(DateTime.Today, SystemTime.Now().Date);
-            }
+            Assert.Equal(DateTime.Today, SystemTime.Now().Date);
         }
     }
 }

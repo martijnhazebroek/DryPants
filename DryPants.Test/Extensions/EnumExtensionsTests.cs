@@ -1,12 +1,10 @@
 ﻿using System;
 using DryPants.Extensions;
-using JetBrains.Annotations;
 using Xunit;
 
 namespace DryPants.Test.Extensions
 {
-    [UsedImplicitly]
-    internal class EnumExtensionsTests
+    public class EnumExtensionsTests
     {
         
         public class IsOneOfTests

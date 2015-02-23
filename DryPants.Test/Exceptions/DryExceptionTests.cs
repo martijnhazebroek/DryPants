@@ -3,7 +3,7 @@ using System.Runtime.Serialization;
 using DryPants.Exceptions;
 using Xunit;
 
-namespace DryPants.Test.ExceptionsTests
+namespace DryPants.Test.Exceptions
 {
     public class DryExceptionTests
     {
@@ -79,7 +79,7 @@ namespace DryPants.Test.ExceptionsTests
         public void DefaultConstructor_ReturnsDefaultMessage()
         {
             var exception = new ExceptionDummy();
-            Assert.Equal("Exception of type 'DryPants.Test.ExceptionsTests.DryExceptionTests+ExceptionDummy' was thrown.", exception.Message);
+            Assert.Equal("Exception of type 'DryPants.Test.Exceptions.DryExceptionTests+ExceptionDummy' was thrown.", exception.Message);
         }
 
         #endregion

@@ -1,10 +1,8 @@
 ﻿using DryPants.Extensions;
-using JetBrains.Annotations;
 using Xunit;
 
 namespace DryPants.Test.Extensions
 {
-    [UsedImplicitly]
     public class DecimalExtensionsTests
     {
         

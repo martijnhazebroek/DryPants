@@ -2,12 +2,10 @@ using System;
 using System.Linq;
 using System.Reflection;
 using DryPants.Reflection;
-using JetBrains.Annotations;
 using Xunit;
 
 namespace DryPants.Test.Reflection
 {
-    [UsedImplicitly]
     public class AssemblyExtensionsTests
     {
         

@@ -1,11 +1,9 @@
 ﻿using DryPants.Extensions;
-using JetBrains.Annotations;
 using Xunit;
 
 namespace DryPants.Test.Extensions
 {
-    [UsedImplicitly]
-    internal class CharExtensionsTests
+    public class CharExtensionsTests
     {
         
         public class ToAlphabetIndexTest

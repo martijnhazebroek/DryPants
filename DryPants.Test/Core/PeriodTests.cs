@@ -1,18 +1,12 @@
-﻿using DryPants.Core;
+﻿using System;
+using DryPants.Core;
 using DryPants.Test.Extensions;
-using System;
-using System.Globalization;
-using System.Threading;
 using Xunit;
 
 namespace DryPants.Test.Core
 {
-    internal class PeriodTests
+    public class PeriodTests
     {
-        PeriodTests()
-        {
-            Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
-        }
 
         public class ConstructorExtensionsTests : PeriodExtensionsTests
         {
@@ -46,7 +40,6 @@ namespace DryPants.Test.Core
                 Assert.True(period.Equals(period));
                 Assert.True(((object)period).Equals(period));
                 Assert.Equal(period.GetHashCode(), period.GetHashCode());
-                Assert.True(period == period);
             }
 
             [Fact]

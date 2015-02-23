@@ -1,22 +1,22 @@
-﻿using DryPants.Core;
-using DryPants.Extensions;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading;
+using DryPants.Core;
+using DryPants.Extensions;
 using Xunit;
 
 namespace DryPants.Test.Extensions
 {
-    internal class PeriodExtensionsTests
+    public class PeriodExtensionsTests
     {
         public PeriodExtensionsTests()
         {
             Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
         }
 
-        public class EachMonthExtensionsTests : PeriodExtensionsTests
+        public class EachMonthExtensions : PeriodExtensionsTests
         {
             [Fact]
             public void SingleDay_PeriodOfSingleDay()

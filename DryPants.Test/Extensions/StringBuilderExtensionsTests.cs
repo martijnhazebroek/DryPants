@@ -1,13 +1,10 @@
 ﻿using System.Text;
 using DryPants.Extensions;
-using JetBrains.Annotations;
 using Xunit;
-
 
 namespace DryPants.Test.Extensions
 {
-    [UsedImplicitly]
-    internal class StringBuilderExtensionsTests
+    public class StringBuilderExtensionsTests
     {
         
         public class AppendIfTests

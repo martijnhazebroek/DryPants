@@ -1,35 +1,43 @@
 ﻿using System;
 using System.Globalization;
+using System.Threading;
 using DryPants.Extensions;
 
 namespace DryPants.Core
 {
-    public static class Calendar
+    public class Calendar
     {
-        #region Fields
+        private readonly CultureInfo _culture;
+        private readonly Func<DateTime> _systemTimeResolver;
 
-        private static readonly CultureInfo ActiveCulture = CultureInfo.CurrentCulture;
+        public Calendar(CultureInfo culture)
+            : this(culture, SystemTime.Now)
+        {
 
-        #endregion
+        }
 
-        #region Days
+        internal Calendar(CultureInfo culture, Func<DateTime> systemTimeResolver)
+        {
+            _culture = culture;
+            _systemTimeResolver = systemTimeResolver;
+        }
 
-        public static DateTime Yesterday
+        public DateTime Yesterday
         {
             get { return Today.AddDays(-1); }
         }
 
-        private static DateTime Today
+        private DateTime Today
         {
-            get { return SystemTime.Now().Date; }
+            get { return _systemTimeResolver().Date; }
         }
 
-        public static DateTime Tomorrow
+        public DateTime Tomorrow
         {
             get { return Today.AddDays(1); }
         }
 
-        public static DateTime NextWorkday
+        public DateTime NextWorkday
         {
             get
             {
@@ -42,7 +50,7 @@ namespace DryPants.Core
             }
         }
 
-        public static DateTime PreviousWorkday
+        public DateTime PreviousWorkday
         {
             get
             {
@@ -55,63 +63,50 @@ namespace DryPants.Core
             }
         }
 
-        #endregion
-
-        #region Weeks
-
-        public static int WeekNumber
+        public int WeekNumber
         {
             get
             {
-                return ActiveCulture.Calendar.GetWeekOfYear(Today,
-                                                            ActiveCulture.DateTimeFormat.CalendarWeekRule,
-                                                            ActiveCulture.DateTimeFormat.FirstDayOfWeek);
+                return _culture.Calendar.GetWeekOfYear(Today,
+                                                            _culture.DateTimeFormat.CalendarWeekRule,
+                                                            _culture.DateTimeFormat.FirstDayOfWeek);
             }
         }
 
-        public static DateTime NextWeek
+        public DateTime NextWeek
         {
             get { return Today.AddDays(7); }
         }
 
-        public static DateTime PreviousWeek
+        public DateTime PreviousWeek
         {
             get { return Today.AddDays(-7); }
         }
-
-        #endregion
-
-        #region Months
-
-        public static int DaysInCurrentMonth
+        
+        public int DaysInCurrentMonth
         {
             get { return Today.GetDaysInMonth(); }
         }
 
-        public static DateTime NextMonth
+        public DateTime NextMonth
         {
             get { return Today.AddMonths(1); }
         }
 
-        public static DateTime PreviousMonth
+        public DateTime PreviousMonth
         {
             get { return Today.AddMonths(-1); }
         }
 
-        #endregion
-
-        #region Year
-
-        public static int DaysInCurrentYear
+        public int DaysInCurrentYear
         {
             get { return Today.GetDaysInYear(); }
         }
 
-        public static bool CurrentYearIsLeapYear
+        public bool CurrentYearIsLeapYear
         {
             get { return Today.IsLeapYear(); }
         }
 
-        #endregion
     }
 }

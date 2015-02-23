@@ -6,8 +6,6 @@ namespace DryPants.Extensions
 {
     public static class DateTimeExtensions
     {
-        #region Extension Methods
-
         public static int ToAge(this DateTime birthday)
         {
             return ToAge(birthday, SystemTime.Now());
@@ -71,18 +69,21 @@ namespace DryPants.Extensions
 
         public static DateTime FirstDayOfWeek(this DateTime source)
         {
+            return FirstDayOfWeek(source, CultureInfo.InvariantCulture);
+        }
+
+        public static DateTime FirstDayOfWeek(this DateTime source, CultureInfo culture)
+        {
+            if(culture == null) throw new ArgumentNullException("culture");
+
             DateTime day = source;
             do
             {
                 day = day.AddDays(-1);
-            } while (day.DayOfWeek != CultureInfo.CurrentCulture.DateTimeFormat.FirstDayOfWeek);
+            } while (day.DayOfWeek != culture.DateTimeFormat.FirstDayOfWeek);
 
             return day;
         }
-
-        #endregion
-
-        #region Util
 
         public static DateTime Min(DateTime first, DateTime second)
         {
@@ -93,7 +94,5 @@ namespace DryPants.Extensions
         {
             return first > second ? first : second;
         }
-
-        #endregion
     }
 }

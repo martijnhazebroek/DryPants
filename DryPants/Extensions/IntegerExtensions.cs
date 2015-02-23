@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using DryPants.Core;
 using DryPants.Exceptions;
 
 namespace DryPants.Extensions
 {
     public static class IntegerExtensions
     {
-        #region To: TimeSpan
-
         public static TimeSpan Days(this int source)
         {
             return new TimeSpan(source, 0, 0, 0);
@@ -29,23 +28,15 @@ namespace DryPants.Extensions
             return new TimeSpan(0, 0, 0, source);
         }
 
-        #endregion
-
-        #region To: Boolean
-
         public static bool IsEven(this int source)
         {
-            return source%2 == 0;
+            return source % 2 == 0;
         }
 
         public static bool IsOdd(this int source)
         {
             return !source.IsEven();
         }
-
-        #endregion
-
-        #region To: Integer
 
         public static int Times(this int source, Action<int> action)
         {
@@ -56,15 +47,9 @@ namespace DryPants.Extensions
             return source;
         }
 
-        #endregion
-
-        #region To: Integer ([])
-
         public static int[] UpTo(this int source, int limit)
         {
-            if (limit < source) return new[] {source};
-
-            return source.InternalUpTo(limit).ToArray();
+            return limit < source ? new[] { source } : source.InternalUpTo(limit).ToArray();
         }
 
         public static int UpTo(this int source, int limit, Action<int> action)
@@ -85,7 +70,7 @@ namespace DryPants.Extensions
 
         public static int[] DownTo(this int source, int limit)
         {
-            if (limit > source) return new[] {source};
+            if (limit > source) return new[] { source };
 
             return source.PrivateDownTo(limit).ToArray();
         }
@@ -106,6 +91,14 @@ namespace DryPants.Extensions
                 yield return i;
         }
 
-        #endregion
+        public static Percentage Percent(this int source)
+        {
+            return new Percentage(source);
+        }
+
+        public static Percentage IsPercentageOf(this int source, decimal value)
+        {
+            return Percentage.IsPercentageOf(source, value);
+        }
     }
 }

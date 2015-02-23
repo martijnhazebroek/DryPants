@@ -1,15 +1,13 @@
 ﻿using System;
 using DryPants.Exceptions;
 using DryPants.Resources;
-using JetBrains.Annotations;
 using Xunit;
 
-namespace DryPants.Test.ExceptionsTests
+namespace DryPants.Test.Exceptions
 {
-    [UsedImplicitly]
-    internal class ThrowTests
+    public class ThrowTests
     {
-        public class ArgumentNullOrWhiteSpaceTests
+        public class ArgumentNullOrWhiteSpace
         {
             // ReSharper disable ExpressionIsAlwaysNull
 
@@ -59,7 +57,8 @@ namespace DryPants.Test.ExceptionsTests
 
             // ReSharper restore ExpressionIsAlwaysNull
         }
-        public class ArgumentNullTests
+       
+        public class ArgumentNull
         {
             // ReSharper disable ExpressionIsAlwaysNull
 

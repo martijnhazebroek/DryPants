@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Globalization;
-using System.Threading;
-using DryPants.Core;
 using DryPants.Extensions;
-using DryPants.Test.Core;
 using Xunit;
 
 namespace DryPants.Test.Extensions
@@ -29,7 +26,8 @@ namespace DryPants.Test.Extensions
             [Fact]
             public void DateTimeWithHoursMinutesAndSeconds_10DaysAgo_ReturnsDateTimeNowMinus10Days()
             {
-                Assert.Equal(new DateTime(2012, 12, 21, 1, 2, 3), new TimeSpan(10, 0, 0, 0).Ago(new DateTime(2012, 12, 31, 1, 2, 3)));
+                var dateNow = new DateTime(2012, 12, 31, 1, 2, 3);
+                Assert.Equal(new DateTime(2012, 12, 21, 1, 2, 3), new TimeSpan(10, 0, 0, 0).Ago(dateNow));
             }
         }
         public class BeforeTests
@@ -65,24 +63,17 @@ namespace DryPants.Test.Extensions
             [Fact]
             public void RegularWednesday_ReturnsExpectedDayOfWeek()
             {
-                using (new ThreadCultureScope(Thread.CurrentThread.CurrentCulture))
-                {
-                    Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
+                var culture = CultureInfo.InvariantCulture;
 
-                    Assert.Equal(CultureInfo.CurrentCulture.DateTimeFormat.FirstDayOfWeek,
-                        new DateTime(2012, 11, 13).FirstDayOfWeek().DayOfWeek);
-                }
+                Assert.Equal(culture.DateTimeFormat.FirstDayOfWeek,
+                    new DateTime(2012, 11, 13).FirstDayOfWeek(culture).DayOfWeek);
             }
 
             [Fact]
             public void RegularWednesday_ReturnsExpectedDate()
             {
-                using (new ThreadCultureScope(Thread.CurrentThread.CurrentCulture))
-                {
-                    Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
-
-                    Assert.Equal(new DateTime(2012, 11, 11), new DateTime(2012, 11, 13).FirstDayOfWeek());
-                }
+                var culture = CultureInfo.InvariantCulture;
+                Assert.Equal(new DateTime(2012, 11, 11), new DateTime(2012, 11, 13).FirstDayOfWeek(culture));
             }
         }
         public class FromNowTests
@@ -90,7 +81,8 @@ namespace DryPants.Test.Extensions
             [Fact]
             public void DateTimeWithHoursMinutesAndSeconds_10DaysFromNow_ReturnsDateTimePlus10Days()
             {
-                Assert.Equal(new DateTime(2013, 1, 10, 1, 2, 3), new TimeSpan(10, 0, 0, 0).FromNow(new DateTime(2012, 12, 31, 1, 2, 3)));
+                var dateNow = new DateTime(2012, 12, 31, 1, 2, 3);
+                Assert.Equal(new DateTime(2013, 1, 10, 1, 2, 3), new TimeSpan(10, 0, 0, 0).FromNow(dateNow));
             }
         }
 
